@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=[GGS]gnome-gui-switcher
+Comment=applications for switching kits (profiles) of additions in gnome 42
+Categories=Utility;
+Exec=bash -c /home/gamer/bzu-gmb-apps/[GGS]gnome-gui-switcher/ggs-starter.sh
+Terminal=true
+Icon=/home/gamer/bzu-gmb-apps/[GGS]gnome-gui-switcher/icons/gnome-ext-pack.png
