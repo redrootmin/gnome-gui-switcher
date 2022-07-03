@@ -5,7 +5,6 @@ add-to-desktop@tommimon.github.com
 appindicatorsupport@rgcjonas.gmail.com
 backslide@codeisland.org
 clipboard-indicator@tudmotu.com
-dash-to-dock@micxgx.gmail.com
 dash-to-panel@jderose9.github.com
 dict@sun.wxg@gmail.com
 drive-menu@gnome-shell-extensions.gcampax.github.com
@@ -14,6 +13,7 @@ gnome-shell-screenshot@ttll.de
 gsconnect@andyholmes.github.io
 noannoyance@daase.net
 openweather-extension@jenslody.de
+big-avatar@gustavoperedo.org
 sensory-perception@HarlemSquirrel.github.io
 sound-output-device-chooser@kgshank.net
 switchWorkSpace@sun.wxg@gmail.com
@@ -36,3 +36,4 @@ better-osd@hllvc
 desktop-cube@schneegans.github.com
 transparent-window-moving@noobsai.github.com
 freon@UshakovVasilii_Github.yahoo.com
+dash-to-dock@micxgx.gmail.com

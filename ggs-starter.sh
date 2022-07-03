@@ -71,7 +71,7 @@ zenity0="${utils_dir}/zenity"
 export YAD=${YAD0}
 export zenity=${zenity0}
 
-if inxi -G | grep -ow "x11" > /dev/null
+if echo $XDG_SESSION_TYPE | grep -ow "x11" > /dev/null
 then
 # запрос пароля супер пользователя (если его не передал модуль обнавления), который дальше будет поставляться где требуется в качестве глобальной переменной, до конца работы скрипта
 pass_user0=$1
@@ -106,7 +106,46 @@ echo "Основные пакеты для ${version} уже установле�
 tput sgr 0
 
 else
+# Проверка что существует папка bzu-gmb-temp, если нет, создаем ее
+ if [ ! -d "/home/${USER}/bzu-gmb-temp" ]
+ then
+mkdir -p "/home/${USER}/bzu-gmb-temp"
+ fi
+# Проверка что существует папка autostart, если нет, создаем ее
+ if [ ! -d "/home/${USER}/.config/autostart" ]
+ then
+mkdir -p "/home/${USER}/.config/autostart"
+else
+ if [ -e /home/${USER}/.config/autostart/gnome-desktop-icons-touch.desktop ] || [ -e /home/${USER}/.config/autostart/gnome-desktop-icons.desktop ];then
+ rm -f /home/${USER}/.config/autostart/gnome-desktop-icons-touch.desktop
+ rm -f /home/${USER}/.config/autostart/gnome-desktop-icons.desktop
+ fi
+fi
+# Проверка что существует папка bzu-gmb-utils, если нет, создаем ее
+ if [ ! -d "/home/${USER}/.local/share/bzu-gmb-utils" ]
+ then
+mkdir -p "/home/${USER}/.local/share/bzu-gmb-utils"
+ln -s /home/$USER/.local/share/bzu-gmb-utils /home/$USER/bzu-gmb-utils
+ else
+   if [ ! -d "/home/$USER/bzu-gmb-utils" ];then
+ln -s /home/$USER/.local/share/bzu-gmb-utils /home/$USER/bzu-gmb-utils
+echo "ярлыка небыло, создаем его"
+  fi
+ fi
+# Проверка что существует папка bzu-gmb-apps, если нет, создаем ее
+ if [ ! -d "/home/${USER}/.local/share/bzu-gmb-apps" ]
+ then
+mkdir -p "/home/${USER}/.local/share/bzu-gmb-apps"
+ln -s /home/$USER/.local/share/bzu-gmb-apps /home/$USER/bzu-gmb-apps
+ else
+   if [ ! -d "/home/$USER/bzu-gmb-apps" ];then
+ln -s /home/$USER/.local/share/bzu-gmb-apps /home/$USER/bzu-gmb-apps
+echo "ярлыка небыло, создаем его"
+  fi
+ fi
+ 
 ## установка темы/иконок/обои для GNOME
+ if [ -e /usr/bin/gnome-shell ];then
 # Проверка что существует папка c темой Adwaita-dark , если нет, создаем ее
   if [ ! -d "/usr/share/themes/Adwaita-dark/gnome-shell" ]
   then
@@ -137,6 +176,7 @@ cd "/usr/share"
 echo "${pass_user}" | sudo -S tar -xpJf "/home/$USER/bzu-gmb-temp/rosa-gnome-wallpapers-v1.tar.xz"
   fi
 
+fi
 ##################################################################################
 # подключение игровой репы: rosa_gaming
 echo "[rosa_gaming]
@@ -204,6 +244,7 @@ GTK_THEME="Adwaita-dark" ${YAD} --plug=$KEY_GUI --tabnum=1 --list --radiolist \
 FALSE "rosa" "$script_dir/images/$linuxos_run/rosa.png" \
 FALSE "redroot" "$script_dir/images/$linuxos_run/redroot.png" \
 FALSE "macos" "$script_dir/images/$linuxos_run/macos.png" \
+FALSE "mint" "$script_dir/images/$linuxos_run/mint.png" \
 FALSE "ubuntu" "$script_dir/images/$linuxos_run/ubuntu.png" > "$script_dir/config/style_select" &
 
 # tabs2
@@ -284,7 +325,9 @@ dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/ubuntu/extensions.conf"
 
 readarray -t ge_list < "$script_dir/config/$linux_os_conf/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-gsettings set org.gnome.shell disable-extension-version-validation false
+#gsettings set org.gnome.shell disable-extension-version-validation false
+killall -3 gnome-shell
+sleep 5
 ;;
 
 "macos ") 
@@ -313,7 +356,40 @@ dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/macos/extensions.conf"
 
 readarray -t ge_list < "$script_dir/config/$linux_os_conf/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-gsettings set org.gnome.shell disable-extension-version-validation false
+#gsettings set org.gnome.shell disable-extension-version-validation false
+killall -3 gnome-shell
+sleep 5
+;;
+
+"mint ") 
+echo "Linux Mint style RUN!"
+gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
+gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set  org.gnome.desktop.interface cursor-theme elementary
+gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
+dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
+if [ ! -f "/usr/share/backgrounds/libadwaita-d.jpg" ]; then
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/mint/libadwaita-d.jpg" /usr/share/backgrounds/
+echo "картинка добавлена в папку /usr/share/backgrounds"
+else
+echo "картинка есть в папке /usr/share/backgrounds"
+fi
+#gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/canvas_by_roytanck.jpg
+gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
+
+readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+sleep 5
+
+dconf reset -f /org/gnome/shell/extensions/
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/mint/extensions.conf"
+
+readarray -t ge_list < "$script_dir/config/$linux_os_conf/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+#gsettings set org.gnome.shell disable-extension-version-validation false
+killall -3 gnome-shell
+sleep 5
 ;;
 
 "rosa ") 
@@ -342,7 +418,9 @@ dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/rosa/extensions.conf"
 
 readarray -t ge_list < "$script_dir/config/$linux_os_conf/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-gsettings set org.gnome.shell disable-extension-version-validation false
+#gsettings set org.gnome.shell disable-extension-version-validation false
+killall -3 gnome-shell
+sleep 5
 ;;
 
 "redroot ") 
@@ -375,7 +453,9 @@ dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/redroot/extensions.conf"
 
 readarray -t ge_list < "$script_dir/config/$linux_os_conf/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-gsettings set org.gnome.shell disable-extension-version-validation false
+#gsettings set org.gnome.shell disable-extension-version-validation false
+killall -3 gnome-shell
+sleep 5
 ;;
 
 esac
