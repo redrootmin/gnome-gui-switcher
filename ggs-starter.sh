@@ -29,38 +29,40 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
-script_dir0=$(dirname $(readlink -f "$0"))
-export script_dir=${script_dir0}
-installing_status=`cat "${script_dir}/config/install-status"`
-if [[ "$installing_status" == "true" ]]
-  then
-  tput setaf 2
-  echo "core-utils уже установлены!"
-  tput sgr 0
-  else
-  #проверка что есть интернет
-  ip_test="8.8.8.8"
-  if ping -c 1 -w 1 ${ip_test} | grep -wo "100% packet loss" > /dev/null
-  then
-  tput setaf 1 
-  echo "ДЛЯ ПЕРВОГО ЗАПУСКА ПРОГРАММЫ ТРЕБУЕТСЯ ИНТЕРНЕТ!"
-  exit 0
-  else
- if [ ! -e /$script_dir/core-utils/yad ];then
-cd "$script_dir"
-wget https://github.com/redrootmin/bzu-gmb-modules/releases/download/v1/core-utils-lite-v1.tar.xz
-tar -xpJf "$script_dir/core-utils-lite-v1.tar.xz"
-rm -f "$script_dir/core-utils-lite-v1.tar.xz"
-fi
-  fi
+#script_dir0=$(dirname $(readlink -f "$0"))
+#
 
-fi
+#if [[ "$installing_status" == "true" ]]
+#  then
+#  tput setaf 2
+#  echo "core-utils уже установлены!"
+#  tput sgr 0
+#  else
+#  #проверка что есть интернет
+#  ip_test="8.8.8.8"
+#  if ping -c 1 -w 1 ${ip_test} | grep -wo "100% packet loss" > /dev/null
+#  then
+#  tput setaf 1 
+#  echo "ДЛЯ ПЕРВОГО ЗАПУСКА ПРОГРАММЫ ТРЕБУЕТСЯ ИНТЕРНЕТ!"
+#  exit 0
+#  else
+# if [ ! -e /$script_dir/core-utils/yad ];then
+#cd "$script_dir"
+#wget https://github.com/redrootmin/bzu-gmb-modules/releases/download/v1/core-utils-lite-v1.tar.xz
+#tar -xpJf "$script_dir/core-utils-lite-v1.tar.xz"
+#rm -f "$script_dir/core-utils-lite-v1.tar.xz"
+#fi
+#  fi
+
+#fi
 
 script_dir0=$(dirname $(readlink -f "$0"))
 utils_dir0="${script_dir0}/core-utils"
 version0=`cat "${script_dir0}/config/name_version"`
 export utils_dir=${utils_dir0}
 export version="Gnome-Gui-Switcher[${version0}]"
+export script_dir=${script_dir0}
+installing_status=`cat "${script_dir}/config/install-status"`
 
 #Определение переменныех утилит и скриптов
 icon1="$script_dir/icons/gnome-ext-pack48.png"
