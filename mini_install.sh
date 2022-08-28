@@ -42,5 +42,5 @@ gio set "/home/$USER/.local/share/applications/${name_desktop_file}" "metadata::
 #даем права на запуск программы и ее скриптов
 chmod +x "${script_dir}"/"${name_script_start}"
 echo "" > "${script_dir}/config/install-status"
-
+echo "" > "${script_dir}/config/gnome-version"
 exit 0
