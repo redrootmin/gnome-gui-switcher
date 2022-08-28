@@ -211,7 +211,7 @@ else
 cd "/home/${USER}/.local/share/gnome-shell/"
 tar cf - extensions | xz -z - > "extensions_old.tar.xz"
 ##################
-if [[ ${gnome_version}=="41" ]]
+if [[ ${gnome_version} == "41" ]]
 then
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome41"
 tput sgr 0
