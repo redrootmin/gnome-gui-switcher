@@ -299,7 +299,8 @@ fi
 
 case "$style_select" in
 
-"ubuntu ") 
+"ubuntu ")
+dir41="rosa-gnome41-config" 
 echo "Ubuntu Style RUN!"
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -312,7 +313,7 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/ubuntu/blobs-d.svg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/ubuntu/blobs-d.svg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
@@ -320,13 +321,13 @@ fi
 #gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/canvas_by_roytanck.jpg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
 sleep 5
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/ubuntu/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$dir41/ubuntu/extensions.conf"
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
 sleep 5
@@ -369,7 +370,8 @@ sleep 5
 fi
 ;;
 
-"macos ") 
+"macos ")
+dir41="rosa-gnome41-config" 
 echo "MacOS style RUN!"
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -382,7 +384,7 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/backgrounds/macos-12-dark.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/macos/macos-12-dark.jpg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/macos/macos-12-dark.jpg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
@@ -390,13 +392,13 @@ fi
 #gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/canvas_by_roytanck.jpg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
 sleep 5
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/macos/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$dir41/macos/extensions.conf"
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
 sleep 5
@@ -440,7 +442,8 @@ sleep 5
 fi
 ;;
 
-"mint ") 
+"mint ")
+dir41="rosa-gnome41-config" 
 echo "Linux Mint style RUN!"
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -453,7 +456,7 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/backgrounds/libadwaita-d.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/mint/libadwaita-d.jpg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/mint/libadwaita-d.jpg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
@@ -461,13 +464,13 @@ fi
 #gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/canvas_by_roytanck.jpg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
 sleep 5
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/mint/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$dir41/mint/extensions.conf"
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
 sleep 5
@@ -511,7 +514,8 @@ sleep 5
 fi
 ;;
 
-"rosa ") 
+"rosa ")
+dir41="rosa-gnome41-config" 
 echo "rosa style RUN!"
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -524,7 +528,7 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/wallpapers/ROSA-light-default.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/rosa/ROSA-light-default.svg" "/usr/share/wallpapers/"
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/rosa/ROSA-light-default.svg" "/usr/share/wallpapers/"
 echo "картинка добавлена в папку /usr/share/wallpapers"
 else
 echo "картинка есть в папке /usr/share/wallpapers"
@@ -532,13 +536,13 @@ fi
 #gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/wallpapers/ROSA-light-default.svg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/wallpapers/ROSA-light-default.svg
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
 sleep 5
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/rosa/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$dir41/rosa/extensions.conf"
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
 sleep 5
@@ -582,7 +586,8 @@ sleep 5
 fi
 ;;
 
-"redroot ") 
+"redroot ")
+dir41="rosa-gnome41-config" 
 echo "RedRoot Style RUN!"
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -597,8 +602,8 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/backgrounds/42.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/redroot/42.jpg" /usr/share/backgrounds/
-echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$linux_os_conf/redroot/42bluring.jpg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/redroot/42.jpg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$script_dir/config/$dir41/redroot/42bluring.jpg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
@@ -607,13 +612,13 @@ fi
 #gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/42.jpg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/42.jpg
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
 sleep 5
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$linux_os_conf/redroot/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$script_dir/config/$dir41/redroot/extensions.conf"
 
-readarray -t ge_list < "$script_dir/config/$linux_os_conf/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$script_dir/config/$dir41/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
 sleep 5
