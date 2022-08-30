@@ -22,7 +22,6 @@ echo "$utils_dir"
 YAD="${utils_dir}/yad"
 zenity="${utils_dir}/zenity"
 pass_user="$1"
-echo "pass user: ${pass_user}"
 #запрос пароля root для установки ПО необходимого для bzu-gmb
 if [[ "${pass_user}" == "" ]]
 then

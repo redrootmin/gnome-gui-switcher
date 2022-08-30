@@ -32,8 +32,6 @@ fi
 
 
 pass_user0="$1"
-echo "$pass_user0"
-exit 0
 gsettings set org.gnome.shell disable-extension-version-validation false
 script_dir0=$(dirname $(readlink -f "$0"))
 utils_dir0="${script_dir0}/core-utils"
