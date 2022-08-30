@@ -43,4 +43,21 @@ gio set "/home/$USER/.local/share/applications/${name_desktop_file}" "metadata::
 chmod +x "${script_dir}"/"${name_script_start}"
 echo "" > "${script_dir}/config/install-status"
 echo "" > "${script_dir}/config/gnome-version"
+
+#считываем колличество наборов стилей в папке конфигураций
+readarray -t gnome_all_packs < "${script_dir}/config/gnome-style-packs"
+#делаем цикл с перебором наборов стилей
+for gnome_packs in "${gnome_all_packs[@]}" 
+  do 
+  echo "Пак-стилей: $gnome_packs"
+  #делаем цикл с перебором стилей в наборе
+  readarray -t style_all_names < "${script_dir}/config/$gnome_packs/style-name"
+  for style_names in "${style_all_names[@]}"
+   do
+   #Сбрасываем значение первой установки стиля
+   echo "Назвение стиля: $style_names - сборос значения установки"
+   echo "false" > "${script_dir}/config/$gnome_packs/$style_names/installing"
+  done
+done 
+
 exit 0

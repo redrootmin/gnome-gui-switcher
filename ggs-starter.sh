@@ -285,17 +285,12 @@ echo "style_select[$style_select]"
 
 #проверка на выход из программы
 if [[ $style_select == "" ]] || [ ${select_button} = 1 ];then
-#echo "" > "${script_dir}/module_install_log" 
-#echo "" > "${script_dir}/config/user"
-#echo "" > "${script_dir}/config/yad-module-form"
+
 exit 0
 fi
 
 if [[ $style_select == "" ]] || [ ${select_button} = 0 ];then
-#echo "" > "${script_dir}/module_install_log" 
-#echo "" > "${script_dir}/config/user"
-#echo "" > "${script_dir}/config/yad-module-form"
-exit 0
+bash "${script_dir}/manual_update.sh" $pass_user
 fi
 
 case "$style_select" in
