@@ -59,7 +59,7 @@ chmod +x "${script_dir}/manual_update.sh"
 chmod +x "${script_dir}/mini_install.sh"
 chmod +x "${script_dir}/core-utils/yad"
 chmod +x "${script_dir}/core-utils/zenity"
-version0=`cat "${script_dir0}/config/name_version"`
+version0=`cat "${app_dir}/${install_version}/config/name_version"`
 export version="Gnome-Gui-Switcher[${version0}]"
 #Уведомление пользователя, о том что нового в этой версии
 update_log=`cat "${script_dir}/update_log"`
