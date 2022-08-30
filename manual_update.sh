@@ -31,7 +31,7 @@ else
 echo "обнавляем Gnome-Gui-Switcher!"
 cd "${app_dir}"
 tar cf - ${install_version} | xz -z - > "${install_version}_old.tar.xz" || true
-rm -f gnome-gui-switcher*
+rm -f "${install_version}"
 rm -f -r "${install_version}"
 wget https://github.com/redrootmin/gnome-gui-switcher/archive/refs/heads/rosa.zip -O "${install_version}.zip"
 unzip "${install_version}.zip"
