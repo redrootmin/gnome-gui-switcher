@@ -53,4 +53,4 @@ chmod +x "${script_dir}/core-utils/zenity"
 update_log=`cat "${script_dir}/update_log"`
 GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/image/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка ${install_version}" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
 
-bash "${script_dir}/bzu-gmb-launcher.sh" $pass_user
+bash "${script_dir}/ggs-starter.sh" $pass_user

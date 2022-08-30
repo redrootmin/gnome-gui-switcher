@@ -228,7 +228,6 @@ rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 killall -3 gnome-shell
 sleep 5
-gsettings set org.gnome.shell disable-extension-version-validation false
 fi
 #################
 fi
@@ -290,7 +289,7 @@ exit 0
 fi
 
 if [[ $style_select == "" ]] || [ ${select_button} = 0 ];then
-bash "${script_dir}/manual_update.sh" $pass_user
+bash -c "${script_dir}/manual_update.sh" $pass_user
 fi
 
 case "$style_select" in
