@@ -10,7 +10,7 @@ tput setaf 2; echo "все хорошо этот скрипт не запуще�
 fi
 
 #Определение расположениея папок для утилит и т.д.
-update_time="echo `date +%d"."%m"."%Y" - true"`"
+update_time="echo `date +%d"."%m"."%Y`"
 script_dir=$(cd $(dirname "$0") && pwd);
 echo "$script_dir"
 install_version=`cat ${script_dir}/config/install-version`
