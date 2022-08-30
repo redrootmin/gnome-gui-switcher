@@ -195,7 +195,7 @@ tput sgr 0
 #установка дополнений необходимых для [GGS]gnome-gui-switcher gnome 41
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-v1.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
-killall -3 gnome-shell
+gnome_rebooting
 sleep 10
 else
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome42"
@@ -203,13 +203,16 @@ tput sgr 0
 #установка дополнений необходимых для [GGS]gnome-gui-switcher gnome 42
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
-killall -3 gnome-shell
+gnome_rebooting
 sleep 5
 fi
 #################
 fi
 
-
+# функция перезагрузки гнома
+function gnome_rebooting {
+killall -SIGQUIT gnome-shell
+}
 
 # функция с меню программы
 function gui_app_generator {
@@ -303,7 +306,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/ubuntu/extensions.conf"
 
 readarray -t ge_list < "$gnome_41_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 else
 
@@ -339,7 +342,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/ubuntu/extensions.conf"
 
 readarray -t ge_list < "$gnome_42_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 fi
 ;;
@@ -374,7 +377,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/macos/extensions.conf"
 
 readarray -t ge_list < "$gnome_41_dir/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 else
 
@@ -411,7 +414,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/macos/extensions.conf"
 
 readarray -t ge_list < "$gnome_42_dir/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 fi
 ;;
@@ -446,7 +449,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/mint/extensions.conf"
 
 readarray -t ge_list < "$gnome_41_dir/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 else
 
@@ -483,7 +486,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/mint/extensions.conf"
 
 readarray -t ge_list < "$gnome_42_dir/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 fi
 ;;
@@ -518,7 +521,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/rosa/extensions.conf"
 
 readarray -t ge_list < "$gnome_41_dir/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 else
 
@@ -555,7 +558,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/rosa/extensions.conf"
 
 readarray -t ge_list < "$gnome_42_dir/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 fi
 ;;
@@ -594,7 +597,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/redroot/extensions.conf
 
 readarray -t ge_list < "$gnome_41_dir/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 else
 
@@ -635,7 +638,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/redroot/extensions.conf
 
 readarray -t ge_list < "$gnome_42_dir/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
-killall -3 gnome-shell
+gnome_rebooting
 sleep "$time_sleep"
 fi
 ;;
