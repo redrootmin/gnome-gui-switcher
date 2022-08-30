@@ -10,7 +10,7 @@ tput setaf 2; echo "все хорошо этот скрипт не запуще�
 fi
 
 #Определение расположениея папок для утилит и т.д.
-update_time="echo `date +%d"."%m"."%Y`"
+update_time=`date +%d"."%m"."%Y`
 script_dir=$(cd $(dirname "$0") && pwd);
 echo "$script_dir"
 install_version=`cat ${script_dir}/config/install-version`
@@ -43,7 +43,7 @@ echo "${install_version}" > "${app_dir}/${install_version}/config/install-versio
 if  [ -d "${app_dir}/${install_version}" ];then
 tput setaf 2; echo "Обнавление утилиты ${install_version} завершено :)"
 tput sgr0
-echo `date +%d"."%m"."%Y" - true"` > "${app_dir}/${install_version}/config/update-status"
+echo "$update_time" > "${app_dir}/${install_version}/config/update-status"
 else
 tput setaf 1; echo "Обнавление утилиты ${install_version} завершено с ОШИБКОЙ :("
 tput sgr0
