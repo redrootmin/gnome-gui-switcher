@@ -10,6 +10,7 @@ tput setaf 2; echo "все хорошо этот скрипт не запуще�
 fi
 
 #Определение расположениея папок для утилит и т.д.
+update_time="echo `date +%d"."%m"."%Y" - true"`"
 script_dir=$(cd $(dirname "$0") && pwd);
 echo "$script_dir"
 install_version=`cat ${script_dir}/config/install-version`
@@ -30,7 +31,8 @@ echo " "
 else
 echo "обнавляем Gnome-Gui-Switcher!"
 cd "${app_dir}"
-tar cf - ${install_version} | xz -z - > "${install_version}_old.tar.xz" || true
+rm -f "${install_version}_old"*
+tar cf - ${install_version} | xz -z - > "${install_version}_old-[$update_time].tar.xz" || true
 rm -f "${install_version}"
 rm -f -r "${install_version}"
 wget https://github.com/redrootmin/gnome-gui-switcher/archive/refs/heads/rosa.zip -O "${install_version}.zip"
