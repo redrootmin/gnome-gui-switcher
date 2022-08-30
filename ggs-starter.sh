@@ -269,6 +269,7 @@ if [[ $style_select == "" ]] || [[ ${select_button} == "1" ]];then
 exit 0
 fi
 
+if [[ ! $style_select == "" ]] && [[ ${select_button} == "2" ]];then
 
 case "$style_select" in
 
@@ -641,6 +642,7 @@ fi
 
 esac
 
+fi
 
 done
 
