@@ -31,16 +31,22 @@ else
 echo "обнавляем Gnome-Gui-Switcher!"
 cd "${app_dir}"
 tar cf - ${install_version} | xz -z - > "${install_version}_old.tar.xz" || true
-rm -f [GGS]gnome-gui-switcher*
+rm -f gnome-gui-switcher*
 rm -f -r "${install_version}"
-wget https://github.com/redrootmin/gnome-gui-switcher/archive/refs/heads/rosa.zip -O "[GGS]${install_version}.zip"
-unzip "[GGS]${install_version}.zip" | echo `date +%d"."%m"."%Y" - true"` > "${app_dir}/${install_version}/config/update-status"
-rm -f "[GGS]${install_version}.zip"
+wget https://github.com/redrootmin/gnome-gui-switcher/archive/refs/heads/rosa.zip -O "${install_version}.zip"
+unzip "${install_version}.zip"
+rm -f "${install_version}.zip"
 chmod +x "${app_dir}/${install_version}/mini_install.sh"
 echo "${install_version}" > "${app_dir}/${install_version}/config/install-version"
-if echo `cat "${app_dir}/${install_version}/config/update-status"` | grep -wo "true" > /dev/null;then
+if  [ -d "${app_dir}/${install_version}" ];then
 tput setaf 2; echo "Обнавление утилиты ${install_version} завершено :)"
 tput sgr0
+echo `date +%d"."%m"."%Y" - true"` > "${app_dir}/${install_version}/config/update-status"
+else
+tput setaf 1; echo "Обнавление утилиты ${install_version} завершено с ОШИБКОЙ :("
+tput sgr0
+sleep 5
+exit 0
 fi
 fi
 
@@ -56,4 +62,4 @@ chmod +x "${script_dir}/core-utils/zenity"
 update_log=`cat "${script_dir}/update_log"`
 GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/images/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка ${install_version}" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
 
-bash "${script_dir}/ggs-starter.sh" $pass_user
+bash "${app_dir}/${install_version}/ggs-starter.sh" $pass_user
