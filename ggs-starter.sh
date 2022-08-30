@@ -258,7 +258,7 @@ GTK_THEME="Adwaita-dark" ${YAD} --plug=$KEY_GUI --tabnum=3 --form \
 --image="$image2" > "$script_dir/config/conf_temp_gui" &
 
 # run core-gui-app
-GTK_THEME="Adwaita-dark" ${YAD} --notebook --key=$KEY_GUI --tab="Style GUI" --tab="Theme+Colors" --tab="Config" --title="${version}-${linuxos_version}"  --window-icon="$icon1" --image="$image1" --image-on-top --width=490 --height=900 --button="Reset:0" --button="exit:1" --button="Apply:2"
+GTK_THEME="Adwaita-dark" ${YAD} --notebook --key=$KEY_GUI --tab="Style GUI" --tab="Theme+Colors" --tab="Config" --title="${version}-${linuxos_version}"  --window-icon="$icon1" --image="$image1" --image-on-top --width=490 --height=900 --button="Update:0" --button="Exit:1" --button="Apply:2"
 
 select_button0="$?"
 export select_button=$select_button0
