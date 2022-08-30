@@ -219,7 +219,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-v1.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome42"
 tput sgr 0
@@ -227,7 +227,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 #################
 fi
@@ -288,7 +288,7 @@ if [[ $style_select == "" ]] || [ ${select_button} = 1 ];then
 exit 0
 fi
 
-if [[ $style_select == "" ]] || [ ${select_button} = 0 ];then
+if [ ${select_button} = 0 ];then
 bash -c "${script_dir}/manual_update.sh" $pass_user
 fi
 
@@ -317,7 +317,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
 
 readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/ubuntu/extensions.conf"
@@ -325,7 +325,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/ubuntu/extensions.conf"
 readarray -t ge_list < "$gnome_41_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 
 echo "Ubuntu Style gnome 42 установка!"
@@ -353,7 +353,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/b
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
 
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/ubuntu/extensions.conf"
@@ -361,7 +361,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/ubuntu/extensions.conf"
 readarray -t ge_list < "$gnome_42_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 ;;
 
@@ -388,7 +388,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
 
 readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/macos/extensions.conf"
@@ -396,7 +396,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/macos/extensions.conf"
 readarray -t ge_list < "$gnome_41_dir/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 
 echo "MacOS Style gnome 42 установка!"
@@ -425,7 +425,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/b
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
 
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/macos/extensions.conf"
@@ -433,7 +433,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/macos/extensions.conf"
 readarray -t ge_list < "$gnome_42_dir/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 ;;
 
@@ -460,7 +460,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
 
 readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/mint/extensions.conf"
@@ -468,7 +468,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/mint/extensions.conf"
 readarray -t ge_list < "$gnome_41_dir/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 
 echo "Linux Mint Style gnome 42 установка!"
@@ -497,7 +497,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/b
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
 
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/mint/extensions.conf"
@@ -505,7 +505,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/mint/extensions.conf"
 readarray -t ge_list < "$gnome_42_dir/mint/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 ;;
 
@@ -532,7 +532,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/wallpapers/ROSA-light-default.svg
 
 readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/rosa/extensions.conf"
@@ -540,7 +540,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/rosa/extensions.conf"
 readarray -t ge_list < "$gnome_41_dir/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 
 echo "ROSA Style gnome 42 установка!"
@@ -569,7 +569,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/w
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/wallpapers/ROSA-light-default.svg
 
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/rosa/extensions.conf"
@@ -577,7 +577,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/rosa/extensions.conf"
 readarray -t ge_list < "$gnome_42_dir/rosa/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 ;;
 
@@ -608,7 +608,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/42.jpg
 
 readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/redroot/extensions.conf"
@@ -616,7 +616,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/redroot/extensions.conf
 readarray -t ge_list < "$gnome_41_dir/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 else
 
 echo "RedRoot Style gnome 42 установка!"
@@ -649,7 +649,7 @@ gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/b
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/42.jpg
 
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep 5
+sleep 10
 
 dconf reset -f /org/gnome/shell/extensions/
 dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/redroot/extensions.conf"
@@ -657,7 +657,7 @@ dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/redroot/extensions.conf
 readarray -t ge_list < "$gnome_42_dir/redroot/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 killall -3 gnome-shell
-sleep 5
+sleep 10
 fi
 ;;
 
