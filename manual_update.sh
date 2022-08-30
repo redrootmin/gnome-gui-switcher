@@ -11,14 +11,18 @@ fi
 
 #Определение расположениея папок для утилит и т.д.
 script_dir=$(cd $(dirname "$0") && pwd);
+echo "$script_dir"
 install_version=`cat ${script_dir}/config/install-version`
+echo "$install_version"
 app_dir=`echo "${script_dir}" | sed "s|${install_version}||g"`
+echo "$app_dir"
 utils_dir="${script_dir}/core-utils"
+echo "$utils_dir"
 #Определение переменныех утилит и скриптов
 YAD="${utils_dir}/yad"
 zenity="${utils_dir}/zenity"
 pass_user="$1"
-
+echo "pass user: ${pass_user}"
 #запрос пароля root для установки ПО необходимого для bzu-gmb
 if [[ "${pass_user}" == "" ]]
 then
@@ -51,6 +55,6 @@ chmod +x "${script_dir}/core-utils/zenity"
 
 #Уведомление пользователя, о том что нового в этой версии
 update_log=`cat "${script_dir}/update_log"`
-GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/image/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка ${install_version}" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
+GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/images/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка ${install_version}" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
 
 bash "${script_dir}/ggs-starter.sh" $pass_user

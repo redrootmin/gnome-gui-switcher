@@ -10,12 +10,13 @@ if [ ! -e /usr/bin/gnome-shell ];then linuxos_gnome="false";fi
 
 #проверяем что система совместима с ggs
 if echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.2" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null;then
-tput setaf 2;echo "Операциооная система: ${linuxos_version} совместима с [GGS]gnome-gui-switcher"
+tput setaf 2;echo "Операциооная система: ${linuxos_version} [GNOME] совместима с [GGS]gnome-gui-switcher"
 tput sgr 0
 linuxos_run0="rosa"
 export linuxos_run=$linuxos_run0
 linux_os_conf0="$linuxos_run-config"
 export linux_os_conf=$linux_os_conf0
+
 else 
 tput setaf 1;echo "Операциооная система: ${linuxos_version} не совместима с [GGS]gnome-gui-switcher!"
 tput sgr 0
@@ -29,32 +30,10 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
-#script_dir0=$(dirname $(readlink -f "$0"))
-#
 
-#if [[ "$installing_status" == "true" ]]
-#  then
-#  tput setaf 2
-#  echo "core-utils уже установлены!"
-#  tput sgr 0
-#  else
-#  #проверка что есть интернет
-#  ip_test="8.8.8.8"
-#  if ping -c 1 -w 1 ${ip_test} | grep -wo "100% packet loss" > /dev/null
-#  then
-#  tput setaf 1 
-#  echo "ДЛЯ ПЕРВОГО ЗАПУСКА ПРОГРАММЫ ТРЕБУЕТСЯ ИНТЕРНЕТ!"
-#  exit 0
-#  else
-# if [ ! -e /$script_dir/core-utils/yad ];then
-#cd "$script_dir"
-#wget https://github.com/redrootmin/bzu-gmb-modules/releases/download/v1/core-utils-lite-v1.tar.xz
-#tar -xpJf "$script_dir/core-utils-lite-v1.tar.xz"
-#rm -f "$script_dir/core-utils-lite-v1.tar.xz"
-#fi
-#  fi
-
-#fi
+pass_user0="$1"
+echo "$pass_user0"
+exit 0
 gsettings set org.gnome.shell disable-extension-version-validation false
 script_dir0=$(dirname $(readlink -f "$0"))
 utils_dir0="${script_dir0}/core-utils"
@@ -80,8 +59,8 @@ export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
 if echo $XDG_SESSION_TYPE | grep -ow "x11" > /dev/null
 then
 # запрос пароля супер пользователя (если его не передал модуль обнавления), который дальше будет поставляться где требуется в качестве глобальной переменной, до конца работы скрипта
-pass_user0=$1
-if [[ "$1" == "" ]];then
+
+if [[ "${pass_user0}" == "" ]];then
 pass_user0=$(GTK_THEME="Adwaita-dark" ${zenity} --entry --width=128 --height=128 --title="Запрос пароля" --text="Для работы скрипта ${version} требуется Ваш пароль superuser(root):" --hide-text)
 fi
 
@@ -282,15 +261,16 @@ echo "style_select[$style_select]"
 #exit 0
 #style_case=`echo "$style_select" | sed '/^$/d'`
 
-#проверка на выход из программы
-if [[ $style_select == "" ]] || [ ${select_button} = 1 ];then
+# включение обнавления
+if [[ ${select_button} == "0" ]];then
+bash "$script_dir/manual_update.sh" $pass_user
+fi
 
+#проверка на выход из программы
+if [[ $style_select == "" ]] || [[ ${select_button} == "1" ]];then
 exit 0
 fi
 
-if [ ${select_button} = 0 ];then
-bash -c "${script_dir}/manual_update.sh" $pass_user
-fi
 
 case "$style_select" in
 
@@ -667,5 +647,33 @@ esac
 done
 
 exit 0
+
+
 #GTK_THEME="Adwaita-dark" ${YAD} --title="Back to Ubuntu Vanilla" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА СИСТЕМЫ!" --timeout=5 --timeout-indicator=bottom 
 
+#script_dir0=$(dirname $(readlink -f "$0"))
+#
+
+#if [[ "$installing_status" == "true" ]]
+#  then
+#  tput setaf 2
+#  echo "core-utils уже установлены!"
+#  tput sgr 0
+#  else
+#  #проверка что есть интернет
+#  ip_test="8.8.8.8"
+#  if ping -c 1 -w 1 ${ip_test} | grep -wo "100% packet loss" > /dev/null
+#  then
+#  tput setaf 1 
+#  echo "ДЛЯ ПЕРВОГО ЗАПУСКА ПРОГРАММЫ ТРЕБУЕТСЯ ИНТЕРНЕТ!"
+#  exit 0
+#  else
+# if [ ! -e /$script_dir/core-utils/yad ];then
+#cd "$script_dir"
+#wget https://github.com/redrootmin/bzu-gmb-modules/releases/download/v1/core-utils-lite-v1.tar.xz
+#tar -xpJf "$script_dir/core-utils-lite-v1.tar.xz"
+#rm -f "$script_dir/core-utils-lite-v1.tar.xz"
+#fi
+#  fi
+
+#fi
