@@ -59,9 +59,10 @@ chmod +x "${script_dir}/manual_update.sh"
 chmod +x "${script_dir}/mini_install.sh"
 chmod +x "${script_dir}/core-utils/yad"
 chmod +x "${script_dir}/core-utils/zenity"
-
+version0=`cat "${script_dir0}/config/name_version"`
+export version="Gnome-Gui-Switcher[${version0}]"
 #Уведомление пользователя, о том что нового в этой версии
 update_log=`cat "${script_dir}/update_log"`
-GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/images/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка ${install_version}" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
+GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/images/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка $version" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
 
 bash "${app_dir}/${install_version}/ggs-starter.sh" $pass_user
