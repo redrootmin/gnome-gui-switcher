@@ -210,18 +210,21 @@ fi
 fi
 
 # функция перезагрузки гнома
-function gnome_rebooting {
+function gnome_rebooting () {
 killall -SIGQUIT gnome-shell
 #killall -3 gnome-shell
 }
 
-function ggs_rebooting {
+function ggs_rebooting () {
 GTK_THEME="Adwaita-dark" ${YAD} --title="$version" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА СИСТЕМЫ!" --timeout=5 --timeout-indicator=bottom 
 }
 
+function favorite-apps () {
+dconf write /org/gnome/shell/favorite-apps "['org.gnome.Nautilus.desktop', 'virt-manager.desktop', 'rosa-virtualbox.desktop', 'vmware-player.desktop', 'VSCodium.desktop', 'bzu-gmb.desktop', 'org.gnome.Settings.desktop', 'org.gnome.tweaks.desktop', 'pavucontrol-gtk.desktop', 'org.corectrl.corectrl.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'nemo.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'org.kde.kdenlive.desktop', 'com.obsproject.Studio.desktop', 'org.qbittorrent.qBittorrent.desktop', 'firefox.desktop', 'telegramdesktop.desktop', 'PortProton.desktop', 'protonup-qt.desktop', 'steam.desktop']"
+}
 
 # функция с меню программы
-function gui_app_generator {
+function gui_app_generator () {
 KEY_GUI=$RANDOM
 # tabs1
 GTK_THEME="Adwaita-dark" ${YAD} --plug=$KEY_GUI --tabnum=1 --list --radiolist \
