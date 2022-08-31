@@ -211,8 +211,11 @@ fi
 
 # функция перезагрузки гнома
 function gnome_rebooting {
-killall -SIGQUIT gnome-shell
+#killall -SIGQUIT gnome-shell
+killall -2 gnome-shell
 }
+
+
 
 # функция с меню программы
 function gui_app_generator {
