@@ -211,10 +211,13 @@ fi
 
 # функция перезагрузки гнома
 function gnome_rebooting {
-#killall -SIGQUIT gnome-shell
-killall -2 gnome-shell
+killall -SIGQUIT gnome-shell
+#killall -3 gnome-shell
 }
 
+function ggs_rebooting {
+GTK_THEME="Adwaita-dark" ${YAD} --title="$version" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА СИСТЕМЫ!" --timeout=5 --timeout-indicator=bottom 
+}
 
 
 # функция с меню программы
