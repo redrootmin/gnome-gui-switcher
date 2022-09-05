@@ -295,11 +295,14 @@ case "$style_select" in
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "Ubuntu Style RUN!"
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -325,11 +328,14 @@ sleep "$time_sleep"
 else
 
 echo "Ubuntu Style gnome 42 установка!"
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -366,11 +372,14 @@ fi
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "MacOS style RUN!"
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -396,12 +405,14 @@ sleep "$time_sleep"
 else
 
 echo "MacOS Style gnome 42 установка!"
-
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -438,11 +449,14 @@ fi
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "Linux Mint style RUN!"
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -468,12 +482,14 @@ sleep "$time_sleep"
 else
 
 echo "Linux Mint Style gnome 42 установка!"
-
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -510,11 +526,14 @@ fi
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "rosa style RUN!"
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -540,12 +559,14 @@ sleep "$time_sleep"
 else
 
 echo "ROSA Style gnome 42 установка!"
-
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -586,9 +607,10 @@ gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -621,9 +643,10 @@ gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita
-gsettings set org.gnome.gedit.preferences.editor scheme oblivion
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
+gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
