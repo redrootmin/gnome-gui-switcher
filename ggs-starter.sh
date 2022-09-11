@@ -229,7 +229,7 @@ echo "true" > "$gnome_42_dir/$style_run_func/installing"
 
 # функция отключения всех дополнений
 function gnome_ext_configure () {
-(
+
 style_run_func="$1" 
 # отключаем все дополнения гнома и делаем паузу перед и после отключения, что бы гном успел прогрузиться
 sleep "$time_sleep"
@@ -245,7 +245,7 @@ readarray -t ge_list < "$gnome_42_dir/$style_run/gnome-extensions-list-enable";f
 # мягкая перезагрузка гнома и пауза что бы он смог перезагрузиться
 gnome_rebooting
 sleep "$time_sleep"
-) | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
+#zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
 }
 
 # функция включения дополнений из списка стиля/темы
@@ -372,7 +372,7 @@ fi
 gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/blobs-d.svg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
 fi
-
+gnome_ext_configure $style_run
 fi
 ;;
 
@@ -424,7 +424,6 @@ if  echo "$gnome_42_dir/macos/installing" | grep -ow "false" > /dev/null
 then
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 echo "true" > "$gnome_42_dir/macos/installing"
-fi
 
 if [ ! -f "/usr/share/backgrounds/macos-12-dark.jpg" ]; then
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/macos/macos-12-dark.jpg" /usr/share/backgrounds/
@@ -435,16 +434,9 @@ fi
 gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/macos-12-dark.jpg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
 
-readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep "$time_sleep"
+fi
 
-dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/macos/extensions.conf"
-
-readarray -t ge_list < "$gnome_42_dir/macos/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-#gsettings set org.gnome.shell disable-extension-version-validation false
-gnome_rebooting
-sleep "$time_sleep"
+gnome_ext_configure $style_run
 fi
 ;;
 
