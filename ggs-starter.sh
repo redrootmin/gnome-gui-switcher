@@ -214,6 +214,7 @@ function gnome_rebooting () {
 killall -SIGQUIT gnome-shell
 #killall -3 gnome-shell
 }
+
 # функция рекомендации перезагрузки системы
 function ggs_rebooting () {
 GTK_THEME="Adwaita-dark" ${YAD} --title="$version" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА GNOME, для этого нажмите alt+f2, далее введите r и нажмите inter!" --timeout=5 --timeout-indicator=bottom 
@@ -228,8 +229,8 @@ echo "true" > "$gnome_42_dir/$style_run_func/installing"
 
 # функция отключения всех дополнений
 function gnome_ext_configure () {
-
-style_run_func="$1"& 
+(
+style_run_func="$1" 
 # отключаем все дополнения гнома и делаем паузу перед и после отключения, что бы гном успел прогрузиться
 sleep "$time_sleep"
 readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
@@ -244,8 +245,8 @@ readarray -t ge_list < "$gnome_42_dir/$style_run/gnome-extensions-list-enable";f
 # мягкая перезагрузка гнома и пауза что бы он смог перезагрузиться
 gnome_rebooting
 sleep "$time_sleep"
-
-} | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
+) | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
+}
 
 # функция включения дополнений из списка стиля/темы
 function gnome_ext_enable () {
