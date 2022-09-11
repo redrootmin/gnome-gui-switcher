@@ -249,9 +249,9 @@ sleep "$time_sleep"
 }
 
 # функция включения дополнений из списка стиля/темы
-function gnome_ext_enable () {
-
-}
+#function gnome_ext_enable () {
+#
+#}
 
 # функция с меню программы
 function gui_app_generator () {
