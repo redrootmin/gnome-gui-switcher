@@ -30,7 +30,7 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
-time_sleep="5"
+export time_sleep="2"
 pass_user0="$1"
 gsettings set org.gnome.shell disable-extension-version-validation false
 script_dir0=$(dirname $(readlink -f "$0"))
@@ -196,7 +196,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-v1.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep 10
+sleep "$time_sleep"
 else
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome42"
 tput sgr 0
@@ -204,15 +204,10 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep 5
+sleep "$time_sleep"
 fi
 #################
 fi
-
-# функция перезагрузки гнома
-function time_sleep () {
-sleep 5
-}
 
 # функция перезагрузки гнома
 function gnome_rebooting () {
@@ -220,12 +215,42 @@ killall -SIGQUIT gnome-shell
 #killall -3 gnome-shell
 }
 
+# функция рекомендации перезагрузки системы
 function ggs_rebooting () {
-GTK_THEME="Adwaita-dark" ${YAD} --title="$version" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА СИСТЕМЫ!" --timeout=5 --timeout-indicator=bottom 
+GTK_THEME="Adwaita-dark" ${YAD} --title="$version" --image-on-top --picture --size=fit --filename="${script_dir}/icons/gnome-ext-pack.png" --width=327 --height=327 --center --inc=256  --text-align=center --text="ТРЕБУЕТСЯ ПЕРЕАГРУЗКА GNOME, для этого нажмите alt+f2, далее введите r и нажмите inter!" --timeout=5 --timeout-indicator=bottom 
 }
 
-function favorite-apps () {
+# функция интеграции списка избранных программ на панели
+function favorite_apps () {
+style_run_func="$1"
 dconf write /org/gnome/shell/favorite-apps "['org.gnome.Nautilus.desktop', 'virt-manager.desktop', 'rosa-virtualbox.desktop', 'vmware-player.desktop', 'VSCodium.desktop', 'bzu-gmb.desktop', 'org.gnome.Settings.desktop', 'org.gnome.tweaks.desktop', 'pavucontrol-gtk.desktop', 'org.corectrl.corectrl.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'nemo.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'org.kde.kdenlive.desktop', 'com.obsproject.Studio.desktop', 'org.qbittorrent.qBittorrent.desktop', 'firefox.desktop', 'telegramdesktop.desktop', 'PortProton.desktop', 'protonup-qt.desktop', 'steam.desktop']"
+echo "true" > "$gnome_42_dir/$style_run_func/installing"
+}
+
+# функция отключения всех дополнений
+function gnome_ext_configure () {
+(
+style_run_func="$1" 
+# отключаем все дополнения гнома и делаем паузу перед и после отключения, что бы гном успел прогрузиться
+sleep "$time_sleep"
+readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+sleep "$time_sleep"
+
+#сбрасываем все настройки дополнений гнома и загружем которые сохранены для выбраного стиля
+dconf reset -f /org/gnome/shell/extensions/
+dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/$style_run/extensions.conf"
+
+# включем дополнения для выбраного стиля
+readarray -t ge_list < "$gnome_42_dir/$style_run/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+# мягкая перезагрузка гнома и пауза что бы он смог перезагрузиться
+gnome_rebooting
+sleep "$time_sleep"
+) | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
+}
+
+# функция включения дополнений из списка стиля/темы
+function gnome_ext_enable () {
+
 }
 
 # функция с меню программы
@@ -288,26 +313,25 @@ fi
 
 if [[ ! $style_select == "" ]] && [[ ${select_button} == "2" ]];then
 
-case "$style_select" in
+style_run=`echo ${style_select} | sed 's/\ \>//g'`
 
-"ubuntu ")
+case "$style_run" in
+
+"ubuntu")
 
 if [[ "${gnome_version}" == "41" ]]
 then
-echo "Ubuntu Style RUN!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+echo "$style_run Style RUN!"
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_41_dir/ubuntu/blobs-d.svg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$gnome_41_dir/$style_run/blobs-d.svg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
@@ -319,67 +343,49 @@ readarray -t ge_list < "$gnome_41_dir/gnome-extensions-list-all";for (( i=0; i <
 sleep "$time_sleep"
 
 dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/ubuntu/extensions.conf"
+dconf load /org/gnome/shell/extensions/ < "$gnome_41_dir/$style_run/extensions.conf"
 
-readarray -t ge_list < "$gnome_41_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+readarray -t ge_list < "$gnome_41_dir/$style_run/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
 #gsettings set org.gnome.shell disable-extension-version-validation false
 gnome_rebooting
 sleep "$time_sleep"
 else
 
-echo "Ubuntu Style gnome 42 установка!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+echo "$style_run Style gnome 42 установка!"
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/ubuntu/installing" | grep -ow "false" > /dev/null
+if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
 then
-dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
-echo "true" > "$gnome_42_dir/ubuntu/installing"
-fi
-
+favorite_apps $style_run
 if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/ubuntu/blobs-d.svg" /usr/share/backgrounds/
+echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/blobs-d.svg" /usr/share/backgrounds/
 echo "картинка добавлена в папку /usr/share/backgrounds"
 else
 echo "картинка есть в папке /usr/share/backgrounds"
 fi
 gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/blobs-d.svg
 gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
+fi
 
-readarray -t ge_list < "$gnome_42_dir/gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
-sleep "$time_sleep"
-
-dconf reset -f /org/gnome/shell/extensions/
-dconf load /org/gnome/shell/extensions/ < "$gnome_42_dir/ubuntu/extensions.conf"
-
-readarray -t ge_list < "$gnome_42_dir/ubuntu/gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
-#gsettings set org.gnome.shell disable-extension-version-validation false
-gnome_rebooting
-sleep "$time_sleep"
 fi
 ;;
 
-"macos ")
+"macos")
 
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "MacOS style RUN!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -405,14 +411,12 @@ sleep "$time_sleep"
 else
 
 echo "MacOS Style gnome 42 установка!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -444,19 +448,16 @@ sleep "$time_sleep"
 fi
 ;;
 
-"mint ")
+"mint")
 
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "Linux Mint style RUN!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -482,14 +483,12 @@ sleep "$time_sleep"
 else
 
 echo "Linux Mint Style gnome 42 установка!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -521,19 +520,16 @@ sleep "$time_sleep"
 fi
 ;;
 
-"rosa ")
+"rosa")
 
 if [[ "${gnome_version}" == "41" ]]
 then
 echo "rosa style RUN!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -559,14 +555,12 @@ sleep "$time_sleep"
 else
 
 echo "ROSA Style gnome 42 установка!"
-gsettings set org.gnome.mutter dynamic-workspaces false
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
@@ -598,7 +592,7 @@ sleep "$time_sleep"
 fi
 ;;
 
-"redroot ")
+"redroot")
 
 if [[ "${gnome_version}" == "41" ]]
 then
@@ -607,10 +601,9 @@ gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
@@ -643,10 +636,9 @@ gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.wm.preferences theme Adwaita-dark
-gsettings set org.gnome.gedit.preferences.editor scheme Adwaita-dark
+gsettings set org.gnome.desktop.wm.preferences theme Adwaita
+gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
