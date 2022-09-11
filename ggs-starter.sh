@@ -228,7 +228,7 @@ echo "true" > "$gnome_42_dir/$style_run_func/installing"
 
 # функция отключения всех дополнений
 function gnome_ext_configure () {
-(
+
 style_run_func="$1"& 
 # отключаем все дополнения гнома и делаем паузу перед и после отключения, что бы гном успел прогрузиться
 sleep "$time_sleep"
@@ -244,8 +244,8 @@ readarray -t ge_list < "$gnome_42_dir/$style_run/gnome-extensions-list-enable";f
 # мягкая перезагрузка гнома и пауза что бы он смог перезагрузиться
 gnome_rebooting
 sleep "$time_sleep"
-) | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
-}
+
+} | zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
 
 # функция включения дополнений из списка стиля/темы
 function gnome_ext_enable () {
