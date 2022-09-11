@@ -196,7 +196,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-v1.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep "$time_sleep"
+sleep 10
 else
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome42"
 tput sgr 0
@@ -204,7 +204,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep "$time_sleep"
+sleep 10
 fi
 #################
 fi
