@@ -6,6 +6,7 @@
 #определяем какая система запустила ggs
 linuxos_version=`cat "/etc/os-release" | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g'`
 linuxos_gnome="true"
+
 if [ ! -e /usr/bin/gnome-shell ];then linuxos_gnome="false";fi
 
 #проверяем что система совместима с ggs
@@ -30,6 +31,7 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
+#Определение переменныех утилит и скриптов
 export time_sleep="2"
 pass_user0="$1"
 gsettings set org.gnome.shell disable-extension-version-validation false
@@ -43,7 +45,6 @@ installing_status=`cat "${script_dir}/config/install-status"`
 gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 echo "${gnome_version}" > "${script_dir}/config/gnome-version"
 echo "Gnome Shell ${gnome_version}"
-#Определение переменныех утилит и скриптов
 icon1="$script_dir/icons/gnome-ext-pack48.png"
 image1="$script_dir/images/ggs-logo-v1.png"
 image2="$script_dir/images/ggs-in-development.png"
@@ -54,6 +55,12 @@ export zenity=${zenity0}
 export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
 export gnome_version=$gnome_version0
+
+#определяем какая версия скрипта запущена (стабильная/тестовая)
+name_script0=`basename "$0"`
+name_script=`echo ${name_script0} | sed 's/\.sh\>//g'`
+echo "$name_script" > "${script_dir}/config/run-script"
+#проверяем какой тип сессии (вайланд/Хорг)
 if echo $XDG_SESSION_TYPE | grep -ow "x11" > /dev/null
 then
 # запрос пароля супер пользователя (если его не передал модуль обнавления), который дальше будет поставляться где требуется в качестве глобальной переменной, до конца работы скрипта
@@ -196,7 +203,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-v1.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep "$time_sleep"
+sleep 10
 else
 tput setaf 1;echo "ВНИМАНИЕ: начинается установка комплекта дополнений необходимых для [GGS]gnome-gui-switcher-rosa-gnome42"
 tput sgr 0
@@ -204,7 +211,7 @@ tput sgr 0
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
 tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 gnome_rebooting
-sleep "$time_sleep"
+sleep 10
 fi
 #################
 fi
@@ -252,7 +259,7 @@ gnome_rebooting
 sleep 10
 #zenity --progress --title="настройка Gnome" --text="идет настройка стиля ubuntu gnome 42" --percentage=0 --no-cancel
 echo "все команды для настройки стиля: $style_run_func выполнены!"
-) | zenity --progress --title="НАСТРОЙКА GNOME $gnome_version" --text="идет настройка стиля $style_run_func в GNOME $gnome_version, ожидайте." --percentage=0 --no-cancel --auto-close --pulsate
+) | ${zenity} --progress --title="НАСТРОЙКА GNOME $gnome_version" --text="идет настройка стиля $style_run_func в GNOME $gnome_version, ожидайте." --percentage=0 --no-cancel --auto-close --pulsate
 }
 
 # функция включения дополнений из списка стиля/темы

@@ -13,11 +13,15 @@ fi
 script_dir=$(cd $(dirname "$0") && pwd);
 #app_dir="${script_dir}/app"
 name_desktop_file="ggs.desktop"
+name_desktop_file2="ggs-testing.desktop"
 name_script_start="ggs-starter.sh"
+name_script_start2="ggs-starter-testing.sh"
 name_app="[GGS]gnome-gui-switcher"
+name_app2="[GGS]gnome-gui-switcher-testing"
 exec_full="bash -c "${script_dir}"/"${name_script_start}""
+exec_full2="bash -c "${script_dir}"/"${name_script_start2}""
 icon1="Icon=${script_dir}/icons/gnome-ext-pack.png"
- 
+icon2="Icon=${script_dir}/icons/gnome-ext-pack-testing.png"
 # Проверка что существует папка applications, если нет, создаем ее
 if [ ! -d "/home/${USER}/.local/share/applications" ]
 then
@@ -34,7 +38,21 @@ echo "Categories=Utility;" >> "${script_dir}/${name_desktop_file}"
 echo "Exec=${exec_full}" >> "${script_dir}/${name_desktop_file}"
 echo "Terminal=true" >> "${script_dir}/${name_desktop_file}"
 echo "${icon1}" >> "${script_dir}/${name_desktop_file}"
+
+#Создаем ярлык для скрипта тестовая версия
+echo "[Desktop Entry]
+Version=1.0
+Type=Application
+Name=${name_app2}
+Comment=applications for switching kits (profiles) of additions in gnome 42
+Categories=Utility;
+Exec=${exec_full2}
+Terminal=true
+${icon2}" > "${script_dir}/${name_desktop_file2}"
+
+#копируем ярлыки в папку пользователя
 cp -f "${script_dir}/${name_desktop_file}" "/home/$USER/.local/share/applications/"
+
 #Даем права на запуск ярлыка в папке программы и копируем в папку с ярлыками пользователя
 gio set "${script_dir}/${name_desktop_file}" "metadata::trusted" yes
 gio set "/home/$USER/.local/share/applications/${name_desktop_file}" "metadata::trusted" yes
