@@ -318,7 +318,7 @@ echo "style_select[$style_select]"
 
 # включение обнавления
 if [[ ${select_button} == "0" ]];then
-bash "$script_dir/manual_update.sh" $pass_user
+bash "$script_dir/manual_update.sh" $pass_user $name_script
 fi
 
 #проверка на выход из программы

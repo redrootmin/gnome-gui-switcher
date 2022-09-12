@@ -23,6 +23,7 @@ echo "$utils_dir"
 YAD="${utils_dir}/yad"
 zenity="${utils_dir}/zenity"
 pass_user="$1"
+name_script="$2"
 #запрос пароля root для установки ПО необходимого для bzu-gmb
 if [[ "${pass_user}" == "" ]]
 then
@@ -64,5 +65,5 @@ export version="Gnome-Gui-Switcher[${version0}]"
 #Уведомление пользователя, о том что нового в этой версии
 update_log=`cat "${script_dir}/update_log"`
 GTK_THEME="Adwaita-dark" ${YAD} --list --column=text --no-click --image-on-top --picture --size=fit --image="${script_dir}/images/rosa/multi-wall-update.png" --width=512 --height=640 --center --inc=256  --text-align=center --title="Завершена установка $version" --separator=" " --search-column=1 --print-column=1 --wrap-width=560 "$update_log" --no-buttons
-run_script=`cat "${script_dir}/config/run-script"`
-bash "${app_dir}/${install_version}/$run_script.sh" $pass_user
+
+bash "${app_dir}/${install_version}/$name_script.sh" $pass_user
