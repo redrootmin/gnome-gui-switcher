@@ -60,6 +60,7 @@ export gnome_version=$gnome_version0
 name_script0=`basename "$0"`
 name_script=`echo ${name_script0} | sed 's/\.sh\>//g'`
 echo "$name_script" > "${script_dir}/config/run-script"
+echo "запущен скрипт: $name_script"
 #проверяем какой тип сессии (вайланд/Хорг)
 if echo $XDG_SESSION_TYPE | grep -ow "x11" > /dev/null
 then
