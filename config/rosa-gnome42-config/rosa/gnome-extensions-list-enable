@@ -1,10 +1,9 @@
 sound-output-device-chooser@kgshank.net
 ShutdownTimer@deminder
 appindicatorsupport@rgcjonas.gmail.com
+openweather-extension@jenslody.de
 dash-to-panel@jderose9.github.com
-blur-my-shell@aunetx
 syspeek-gs@gs.eros2.info
-wintile@nowsci.com
 add-to-desktop@tommimon.github.com
 gnome-shell-Google-search-provider@MrNinso
 tweaks-system-menu@extensions.gnome-shell.fifi.org
@@ -13,6 +12,10 @@ clipboard-indicator@tudmotu.com
 drive-menu@gnome-shell-extensions.gcampax.github.com
 switchWorkSpace@sun.wxg@gmail.com
 user-theme@gnome-shell-extensions.gcampax.github.com
+transparent-shell@siroj42.github.io
 noannoyance@daase.net
-openweather-extension@jenslody.de
+date-menu-formatter@marcinjakubowski.github.com
 ding@rastersoft.com
+blur-my-shell@aunetx
+caffeine@patapon.info
+disconnect-wifi@kgshank.net
