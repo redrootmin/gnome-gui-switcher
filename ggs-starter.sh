@@ -377,7 +377,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+if  cat "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
 then
 favorite_apps $style_run
 if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
@@ -437,7 +437,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+if  cat "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
 then
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 echo "true" > "$gnome_42_dir/$style_run/installing"
@@ -501,7 +501,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+if  cat "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
 then
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 echo "true" > "$gnome_42_dir/$style_run/installing"
@@ -564,7 +564,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+if  cat "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
 then
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 echo "true" > "$gnome_42_dir/$style_run/installing"
@@ -634,7 +634,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/redroot/installing" | grep -ow "false" > /dev/null
+if  cat "$gnome_42_dir/redroot/installing" | grep -ow "false" > /dev/null
 then
 dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
 echo "true" > "$gnome_42_dir/redroot/installing"
