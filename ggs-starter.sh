@@ -10,7 +10,8 @@ linuxos_gnome="true"
 if [ ! -e /usr/bin/gnome-shell ];then linuxos_gnome="false";fi
 
 #проверяем что система совместима с ggs
-if echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.2" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null;then
+if echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.2" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null || echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.3" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null
+then
 tput setaf 2;echo "Операциооная система: ${linuxos_version} [GNOME] совместима с [GGS]gnome-gui-switcher"
 tput sgr 0
 linuxos_run0="rosa"
