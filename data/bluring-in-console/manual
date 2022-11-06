@@ -1,0 +1,2 @@
+sudo apt install imagemagick-6.q16
+convert 42.jpg -filter Gaussian -blur 0x100 42-test-blur-in-console.png

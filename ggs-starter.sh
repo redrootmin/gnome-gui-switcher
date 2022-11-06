@@ -378,7 +378,8 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+style_installing=`cat "$gnome_42_dir/$style_run/installing"`
+if  echo "$style_installing" | grep -ow "false" > /dev/null
 then
 favorite_apps $style_run
 if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
@@ -438,10 +439,10 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+style_installing=`cat "$gnome_42_dir/$style_run/installing"`
+if  echo "$style_installing" | grep -ow "false" > /dev/null
 then
-dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
-echo "true" > "$gnome_42_dir/$style_run/installing"
+favorite_apps $style_run
 
 if [ ! -f "/usr/share/backgrounds/macos-12-dark.jpg" ]; then
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/macos-12-dark.jpg" /usr/share/backgrounds/
@@ -502,10 +503,10 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+style_installing=`cat "$gnome_42_dir/$style_run/installing"`
+if  echo "$style_installing" | grep -ow "false" > /dev/null
 then
-dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
-echo "true" > "$gnome_42_dir/$style_run/installing"
+favorite_apps $style_run
 
 if [ ! -f "/usr/share/backgrounds/libadwaita-d.jpg" ]; then
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/libadwaita-d.jpg" /usr/share/backgrounds/
@@ -565,10 +566,10 @@ gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
-if  echo "$gnome_42_dir/$style_run/installing" | grep -ow "false" > /dev/null
+style_installing=`cat "$gnome_42_dir/$style_run/installing"`
+if  echo "$style_installing" | grep -ow "false" > /dev/null
 then
-dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
-echo "true" > "$gnome_42_dir/$style_run/installing"
+favorite_apps $style_run
 
 if [ ! -f "/usr/share/wallpapers/ROSA-light-default.svg" ]; then
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/ROSA-light-default.svg" "/usr/share/wallpapers/"
@@ -634,11 +635,11 @@ gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
-
-if  echo "$gnome_42_dir/redroot/installing" | grep -ow "false" > /dev/null
+style_installing=`cat "$gnome_42_dir/$style_run/installing"`
+if  echo "$style_installing" | grep -ow "false" > /dev/null
 then
-dconf write /org/gnome/shell/favorite-apps "['bzu-gmb.desktop', 'gnome-control-center.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Terminal.desktop', 'gnome-system-monitor.desktop', 'org.gnome.gedit.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Screenshot.desktop', 'kde5-org.kde.krita.desktop', 'org.inkscape.Inkscape.desktop', 'audacious-gtk.desktop', 'audacity.desktop', 'org.shotcut.Shotcut.desktop', 'VSCodium.desktop', 'firefox.desktop', 'telegramdesktop.desktop']"
-echo "true" > "$gnome_42_dir/redroot/installing"
+favorite_apps $style_run
+
 if [ ! -f "/usr/share/backgrounds/42.jpg" ]; then
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42.jpg" /usr/share/backgrounds/
 echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42bluring.jpg" /usr/share/backgrounds/
