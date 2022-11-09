@@ -238,6 +238,9 @@ dconf write /org/gnome/shell/favorite-apps "['org.gnome.Nautilus.desktop', 'virt
 echo "true" > "$gnome_42_dir/$style_run_func/installing"
 }
 
+function image_installer_for_style () {
+
+}
 # функция отключения всех дополнений
 function gnome_ext_configure () {
 style_run_func="$1" 
@@ -372,6 +375,7 @@ else
 echo "$style_run Style gnome 42 установка!"
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -433,6 +437,7 @@ echo "$style_run Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -497,6 +502,7 @@ echo "Linux Mint Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -560,6 +566,7 @@ echo "$style_run Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -631,6 +638,7 @@ gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
