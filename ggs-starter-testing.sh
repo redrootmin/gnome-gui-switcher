@@ -188,7 +188,8 @@ fi
 #Проверка что существует папка extensions c доплнениями, если нет
 #копируем распоковываем архив с дополнениями в папку пользователя и ребутим гном сшелл
 #что бы система их увидела
-if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -d "/home/${USER}/.local/share/gnome-shell/extensions/rosa-gnome42" ]
+extensions_conf=`cat "$script_dir/data/extensions-conf"`
+if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -d "/home/${USER}/.local/share/gnome-shell/extensions/$extensions_conf" ]
 then
 tput setaf 2;echo "комплект дополнений необходимый для [GGS]gnome-gui-switcher уже установлен :)"
 tput sgr 0
@@ -212,7 +213,7 @@ tput setaf 1;echo "ВНИМАНИЕ: начинается установка к�
 tput sgr 0
 #установка дополнений необходимых для [GGS]gnome-gui-switcher gnome 42
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
-tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
+tar -xpJf "$script_dir/data/"$extensions_conf".tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 sleep 5
 killall -SIGQUIT gnome-shell
 sleep 5
@@ -239,7 +240,26 @@ echo "true" > "$gnome_42_dir/$style_run_func/installing"
 }
 
 function image_installer_for_style () {
+style_image_func="$1"
+# установка обоев для стиля, указанного в настройках
+ if [ ! -f "/usr/share/backgrounds/$style_image_func" ]; then
+    echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/$style_image_func" /usr/share/backgrounds/
+    echo "картинка добавлена в папку /usr/share/backgrounds"
+    else
+    echo "картинка есть в папке /usr/share/backgrounds"
+    fi
+  gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/$style_image_func
+  gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/$style_image_func
+   
+   # замена картинки на входе в систему, на указанную в настройках стиля
+   if [ ! -f "/usr/share/wallpapers/ROSA-light-default-backup.svg" ]; then
 
+    echo "${pass_user}" | sudo -S cp -f "/usr/share/wallpapers/ROSA-light-default.svg" "/usr/share/wallpapers/ROSA-light-default-backup.svg"
+    echo "сделан бикап офицальной картинки росы"
+    else
+    echo "бикап офицальной картинки росы уже сделан"
+    fi
+  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/$style_image_func" "/usr/share/backgrounds/ROSA-light-default.svg"
 }
 # функция отключения всех дополнений
 function gnome_ext_configure () {
@@ -383,19 +403,13 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/blobs-d.svg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/blobs-d.svg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
-fi
-gnome_ext_configure $style_run
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  image_installer_for_style $style_run
+  fi
+gnome_ext_configure $style_image
 fi
 ;;
 
@@ -445,22 +459,13 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/macos-12-dark.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/macos-12-dark.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/macos-12-dark.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
-
-fi
-
-gnome_ext_configure $style_run
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  image_installer_for_style $style_run
+  fi
+gnome_ext_configure $style_image
 fi
 ;;
 
@@ -510,21 +515,13 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/libadwaita-d.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/libadwaita-d.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/libadwaita-d.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
-fi
-
-gnome_ext_configure $style_run
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  image_installer_for_style $style_run
+  fi
+gnome_ext_configure $style_image
 fi
 ;;
 
@@ -574,22 +571,13 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/wallpapers/ROSA-light-default.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/ROSA-light-default.svg" "/usr/share/wallpapers/"
-echo "картинка добавлена в папку /usr/share/wallpapers"
-else
-echo "картинка есть в папке /usr/share/wallpapers"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/wallpapers/ROSA-light-default.svg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/wallpapers/ROSA-light-default.svg
-
-fi
-
-gnome_ext_configure $style_run
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  image_installer_for_style $style_run
+  fi
+gnome_ext_configure $style_image
 fi
 ;;
 
@@ -643,24 +631,15 @@ gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
+
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/42.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42.jpg" /usr/share/backgrounds/
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42bluring.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/42.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/42.jpg
-fi
-
-gnome_ext_configure $style_run
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  image_installer_for_style $style_run
+  fi
+gnome_ext_configure $style_image
 fi
 ;;
 
