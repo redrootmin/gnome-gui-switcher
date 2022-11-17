@@ -240,10 +240,11 @@ echo "true" > "$gnome_42_dir/$style_run_func/installing"
 }
 
 function image_installer_for_style () {
-style_image_func="$1"
+style_run_func="$1"  
+style_image_func="$2"
 # установка обоев для стиля, указанного в настройках
  if [ ! -f "/usr/share/backgrounds/$style_image_func" ]; then
-    echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/$style_image_func" /usr/share/backgrounds/
+    echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" /usr/share/backgrounds/
     echo "картинка добавлена в папку /usr/share/backgrounds"
     else
     echo "картинка есть в папке /usr/share/backgrounds"
@@ -259,7 +260,7 @@ style_image_func="$1"
     else
     echo "бикап офицальной картинки росы уже сделан"
     fi
-  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/$style_image_func" "/usr/share/backgrounds/ROSA-light-default.svg"
+  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" "/usr/share/backgrounds/ROSA-light-default.svg"
 }
 # функция отключения всех дополнений
 function gnome_ext_configure () {
@@ -407,9 +408,9 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   if  echo "$style_installing" | grep -ow "false" > /dev/null
   then
   favorite_apps $style_run
-  image_installer_for_style $style_run
+  image_installer_for_style $style_run $style_image
   fi
-gnome_ext_configure $style_image
+gnome_ext_configure $style_run
 fi
 ;;
 
@@ -465,7 +466,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   favorite_apps $style_run
   image_installer_for_style $style_run
   fi
-gnome_ext_configure $style_image
+gnome_ext_configure $style_run
 fi
 ;;
 
@@ -521,7 +522,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   favorite_apps $style_run
   image_installer_for_style $style_run
   fi
-gnome_ext_configure $style_image
+gnome_ext_configure $style_run
 fi
 ;;
 
@@ -577,7 +578,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   favorite_apps $style_run
   image_installer_for_style $style_run
   fi
-gnome_ext_configure $style_image
+gnome_ext_configure $style_run
 fi
 ;;
 
@@ -639,7 +640,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   favorite_apps $style_run
   image_installer_for_style $style_run
   fi
-gnome_ext_configure $style_image
+gnome_ext_configure $style_run
 fi
 ;;
 
