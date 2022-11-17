@@ -464,7 +464,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   if  echo "$style_installing" | grep -ow "false" > /dev/null
   then
   favorite_apps $style_run
-  image_installer_for_style $style_run
+  image_installer_for_style $style_run $style_image
   fi
 gnome_ext_configure $style_run
 fi
@@ -520,7 +520,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   if  echo "$style_installing" | grep -ow "false" > /dev/null
   then
   favorite_apps $style_run
-  image_installer_for_style $style_run
+  image_installer_for_style $style_run $style_image
   fi
 gnome_ext_configure $style_run
 fi
@@ -576,7 +576,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   if  echo "$style_installing" | grep -ow "false" > /dev/null
   then
   favorite_apps $style_run
-  image_installer_for_style $style_run
+  image_installer_for_style $style_run $style_image
   fi
 gnome_ext_configure $style_run
 fi
@@ -638,7 +638,7 @@ style_image=`cat "$gnome_42_dir/$style_run/image"`
   if  echo "$style_installing" | grep -ow "false" > /dev/null
   then
   favorite_apps $style_run
-  image_installer_for_style $style_run
+  image_installer_for_style $style_run $style_image
   fi
 gnome_ext_configure $style_run
 fi
