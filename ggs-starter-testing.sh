@@ -189,7 +189,7 @@ fi
 #копируем распоковываем архив с дополнениями в папку пользователя и ребутим гном сшелл
 #что бы система их увидела
 extensions_conf=`cat "$script_dir/data/extensions-conf"`
-if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -d "/home/${USER}/.local/share/gnome-shell/extensions/$extensions_conf" ]
+if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -f "/home/${USER}/.local/share/gnome-shell/extensions/$extensions_conf" ]
 then
 tput setaf 2;echo "комплект дополнений необходимый для [GGS]gnome-gui-switcher уже установлен :)"
 tput sgr 0
