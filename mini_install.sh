@@ -52,10 +52,12 @@ ${icon2}" > "${script_dir}/${name_desktop_file2}"
 
 #копируем ярлыки в папку пользователя
 cp -f "${script_dir}/${name_desktop_file}" "/home/$USER/.local/share/applications/"
-
+cp -f "${script_dir}/${name_desktop_file2}" "/home/$USER/.local/share/applications/"
 #Даем права на запуск ярлыка в папке программы и копируем в папку с ярлыками пользователя
 gio set "${script_dir}/${name_desktop_file}" "metadata::trusted" yes
 gio set "/home/$USER/.local/share/applications/${name_desktop_file}" "metadata::trusted" yes
+gio set "${script_dir}/${name_desktop_file2}" "metadata::trusted" yes
+gio set "/home/$USER/.local/share/applications/${name_desktop_file2}" "metadata::trusted" yes
 #gio info "${script_dir}/name_desktop_file" | grep "metadata::trusted"
 #даем права на запуск программы и ее скриптов
 chmod +x "${script_dir}"/"${name_script_start}"
