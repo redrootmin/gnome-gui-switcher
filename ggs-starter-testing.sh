@@ -260,7 +260,7 @@ style_image_func="$2"
     else
     echo "бикап офицальной картинки росы уже сделан"
     fi
-  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" "/usr/share/backgrounds/ROSA-light-default.svg"
+  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" "/usr/share/wallpapers/ROSA-light-default.svg"
 }
 # функция отключения всех дополнений
 function gnome_ext_configure () {
