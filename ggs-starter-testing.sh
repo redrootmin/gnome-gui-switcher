@@ -32,29 +32,33 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
-#Определение переменныех утилит и скриптов
-export time_sleep="2"
-pass_user0="$1"
 gsettings set org.gnome.shell disable-extension-version-validation false
+
+#Определение переменныех утилит и скриптов
+pass_user0="$1"
+export time_sleep="2"
 script_dir0=$(dirname $(readlink -f "$0"))
-utils_dir0="${script_dir0}/core-utils"
-version0=`cat "${script_dir0}/config/name_version"`
-export utils_dir=${utils_dir0}
-export version="Gnome-Gui-Switcher[${version0}]"
 export script_dir=${script_dir0}
+version0=`cat "${script_dir}/config/name_version"`
+export version="Gnome-Gui-Switcher[${version0}]"
+utils_dir0="${script_dir}/core-utils"
+export utils_dir=${utils_dir0}
+
 installing_status=`cat "${script_dir}/config/install-status"`
-gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 echo "${gnome_version}" > "${script_dir}/config/gnome-version"
 echo "Gnome Shell ${gnome_version}"
 icon1="$script_dir/icons/gnome-ext-pack48.png"
 image1="$script_dir/images/ggs-logo-v1.png"
 image2="$script_dir/images/ggs-in-development.png"
+
 YAD0="${utils_dir}/yad"
 zenity0="${utils_dir}/zenity"
 export YAD=${YAD0}
 export zenity=${zenity0}
+sh "${script_dir}/core-utils-new/lib_core-utils.sh"
 export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
+gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 export gnome_version=$gnome_version0
 
 #определяем какая версия скрипта запущена (стабильная/тестовая)
