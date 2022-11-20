@@ -41,8 +41,7 @@ script_dir0=$(dirname $(readlink -f "$0"))
 export script_dir=${script_dir0}
 version0=`cat "${script_dir}/config/name_version"`
 export version="Gnome-Gui-Switcher[${version0}]"
-utils_dir0="${script_dir}/core-utils"
-export utils_dir=${utils_dir0}
+
 
 installing_status=`cat "${script_dir}/config/install-status"`
 echo "${gnome_version}" > "${script_dir}/config/gnome-version"
@@ -51,11 +50,20 @@ icon1="$script_dir/icons/gnome-ext-pack48.png"
 image1="$script_dir/images/ggs-logo-v1.png"
 image2="$script_dir/images/ggs-in-development.png"
 
-YAD0="${utils_dir}/yad"
-zenity0="${utils_dir}/zenity"
-export YAD=${YAD0}
-export zenity=${zenity0}
-sh "${script_dir}/core-utils-new/lib_core-utils.sh"
+#YAD0="${utils_dir}/yad"
+#zenity0="${utils_dir}/zenity"
+#export YAD=${YAD0}
+#export zenity=${zenity0}
+utils_dir0="${script_dir}/core-utils-new"
+export utils_dir=${utils_dir0}
+echo "папка утилит:[$utils_dir]"
+export LD_PRELOAD="$utils_dir/lib64":$LD_PRELOAD
+echo "папка доп. библиотек:[$LD_PRELOAD]"
+export YAD="$utils_dir/bin/yad"
+echo "ссылка на протативный yad:[$YAD]"
+export zenity="$utils_dir/bin/zenity"
+echo "ссылка на протативный zenity:[$zenity]"
+
 export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
 gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
