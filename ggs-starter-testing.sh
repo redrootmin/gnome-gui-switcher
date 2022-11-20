@@ -50,15 +50,11 @@ icon1="$script_dir/icons/gnome-ext-pack48.png"
 image1="$script_dir/images/ggs-logo-v1.png"
 image2="$script_dir/images/ggs-in-development.png"
 
-#YAD0="${utils_dir}/yad"
-#zenity0="${utils_dir}/zenity"
-#export YAD=${YAD0}
-#export zenity=${zenity0}
 utils_dir0="${script_dir}/core-utils-new"
 export utils_dir=${utils_dir0}
 echo "папка утилит:[$utils_dir]"
-export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
-echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
+#export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
+#echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
 export YAD="$utils_dir/bin/yad"
 echo "ссылка на протативный yad:[$YAD]"
 export zenity="$utils_dir/bin/zenity"
@@ -189,7 +185,7 @@ echo "${pass_user}" | sudo -S dnf update -y
  if [ -e /usr/bin/gnome-shell ];then
 echo "${pass_user}" | sudo -S dnf remove -y gnome-robots four-in-a-row gnuchess aislerior gnome-chess gnome-mahjongg gnome-sudoku gnome-tetravex iagno lightsoff tail five-or-more gnome-klotski kmahjongg kmines klines kpat
  fi
-echo "${pass_user}" | sudo -S dnf install -y inxi xow libusb-compat0.1_4 paprefs pavucontrol ananicy p7zip python3 grub-customizer libfuse2-devel libfuse3-devel libssl1.1 neofetch git meson ninja gcc gcc-c++ cmake.i686 cmake glibc-devel dbus-devel glslang vulkan.x86_64 vulkan.i686 lib64vulkan-devel.x86_64 lib64vulkan-intel-devel.x86_64 lib64vulkan1.x86_64 libvulkan-devel.i686 libvulkan-intel-devel.i686 libvulkan1.i686
+echo "${pass_user}" | sudo -S dnf install -y inxi yad zenity xow libusb-compat0.1_4 paprefs pavucontrol ananicy p7zip python3 grub-customizer libfuse2-devel libfuse3-devel libssl1.1 neofetch git meson ninja gcc gcc-c++ cmake.i686 cmake glibc-devel dbus-devel glslang vulkan.x86_64 vulkan.i686 lib64vulkan-devel.x86_64 lib64vulkan-intel-devel.x86_64 lib64vulkan1.x86_64 libvulkan-devel.i686 libvulkan-intel-devel.i686 libvulkan1.i686
 echo "${pass_user}" | sudo -S dnf autoremove -y
 echo "${pass_user}" | sudo -S dnf clean packages
 ##################################################################################
