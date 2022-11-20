@@ -53,8 +53,8 @@ image2="$script_dir/images/ggs-in-development.png"
 utils_dir0="${script_dir}/core-utils-new"
 export utils_dir=${utils_dir0}
 echo "папка утилит:[$utils_dir]"
-export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
-echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
+#export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
+#echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
 export YAD="$utils_dir/bin/yad"
 echo "ссылка на протативный yad:[$YAD]"
 export zenity="$utils_dir/bin/zenity"
