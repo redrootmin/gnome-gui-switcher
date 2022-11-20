@@ -12,8 +12,8 @@ fi
 #собираем данные о том в какой папке  находиться редактор
 export utils_dir=$(cd $(dirname "$0") && pwd);
 echo "папка утилит:[$utils_dir]"
-export LD_PRELOAD="$utils_dir/lib64":$LD_PRELOAD
-echo "папка доп. библиотек:[$LD_PRELOAD]"
+export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
+echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
 export YAD="$utils_dir/bin/yad"
 echo "ссылка на протативный yad:[$YAD]"
 export zenity="$utils_dir/bin/zenity"
