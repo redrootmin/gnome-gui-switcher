@@ -1,0 +1,12 @@
+gnome-tweaks
+chrome-gnome-shell
+gnome-shell-extensions
+numix-icon-theme-circle
+git libglib2.0-dev
+libglib2.0-dev-bin
+grub-customizer
+paprefs
+pavucontrol
+gnome-screenshot
+libfuse-dev
+libssl1.1:amd64
