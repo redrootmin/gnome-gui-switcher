@@ -64,7 +64,7 @@ export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
 gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 export gnome_version=$gnome_version0
-
+export gnome_version_run_dir="${script_dir}/config/rosa-gnome$gnome_version"
 #определяем какая версия скрипта запущена (стабильная/тестовая)
 name_script0=`basename "$0"`
 name_script=`echo ${name_script0} | sed 's/\.sh\>//g'`

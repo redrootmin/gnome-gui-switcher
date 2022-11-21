@@ -1,0 +1,31 @@
+
+#INSTALL GNOME EXTERNSIONS
+#1
+readarray -t ge_list < "gnome-extensions-list-all";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions disable "${ge_list[$i]}";done
+
+gsettings set org.gnome.shell disable-user-extensions true
+#2
+dconf reset -f /org/gnome/shell/extensions/
+#3
+dconf load /org/gnome/shell/extensions/ < extensions.conf
+#4
+readarray -t ge_list < "gnome-extensions-list-enable";for (( i=0; i <= (${#ge_list[*]}-1); i=i+1 ));do gnome-extensions enable "${ge_list[$i]}";done
+
+gsettings set org.gnome.shell disable-user-extensions false
+#5
+gsettings set org.gnome.mutter attach-modal-dialogs false
+#
+reboot sysytem
+
+#BACKUP GNOME EXTERNSIONS AND CONFIG GNOME SHELL
+#1
+dconf dump / > dconf_full.conf
+#2
+dconf dump /org/gnome/shell/extensions/ > extensions.conf
+#3
+gnome-extensions list > gnome-extensions-list-all
+#4
+gnome-extensions list --enabled > gnome-extensions-list-enable
+
+
+
