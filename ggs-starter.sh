@@ -32,29 +32,37 @@ else
 tput setaf 2; echo "все хорошо этот скрипт не запущен из под root!"
 fi
 
-#Определение переменныех утилит и скриптов
-export time_sleep="2"
-pass_user0="$1"
 gsettings set org.gnome.shell disable-extension-version-validation false
+
+#Определение переменныех утилит и скриптов
+pass_user0="$1"
+export time_sleep="2"
 script_dir0=$(dirname $(readlink -f "$0"))
-utils_dir0="${script_dir0}/core-utils"
-version0=`cat "${script_dir0}/config/name_version"`
-export utils_dir=${utils_dir0}
-export version="Gnome-Gui-Switcher[${version0}]"
 export script_dir=${script_dir0}
+version0=`cat "${script_dir}/config/name_version"`
+export version="Gnome-Gui-Switcher[${version0}]"
+
+
 installing_status=`cat "${script_dir}/config/install-status"`
-gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 echo "${gnome_version}" > "${script_dir}/config/gnome-version"
 echo "Gnome Shell ${gnome_version}"
 icon1="$script_dir/icons/gnome-ext-pack48.png"
 image1="$script_dir/images/ggs-logo-v1.png"
 image2="$script_dir/images/ggs-in-development.png"
-YAD0="${utils_dir}/yad"
-zenity0="${utils_dir}/zenity"
-export YAD=${YAD0}
-export zenity=${zenity0}
+
+utils_dir0="${script_dir}/core-utils-new"
+export utils_dir=${utils_dir0}
+echo "папка утилит:[$utils_dir]"
+#export LD_LIBRARY_PATH="$utils_dir/lib64":$LD_LIBRARY_PATH
+#echo "папка доп. библиотек:[$LD_LIBRARY_PATH]"
+export YAD="$utils_dir/bin/yad"
+echo "ссылка на протативный yad:[$YAD]"
+export zenity="$utils_dir/bin/zenity"
+echo "ссылка на протативный zenity:[$zenity]"
+
 export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
+gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
 export gnome_version=$gnome_version0
 
 #определяем какая версия скрипта запущена (стабильная/тестовая)
@@ -177,7 +185,7 @@ echo "${pass_user}" | sudo -S dnf update -y
  if [ -e /usr/bin/gnome-shell ];then
 echo "${pass_user}" | sudo -S dnf remove -y gnome-robots four-in-a-row gnuchess aislerior gnome-chess gnome-mahjongg gnome-sudoku gnome-tetravex iagno lightsoff tail five-or-more gnome-klotski kmahjongg kmines klines kpat
  fi
-echo "${pass_user}" | sudo -S dnf install -y inxi xow libusb-compat0.1_4 paprefs pavucontrol ananicy p7zip python3 zenity yad grub-customizer libfuse2-devel libfuse3-devel libssl1.1 neofetch git meson ninja gcc gcc-c++ cmake.i686 cmake glibc-devel dbus-devel glslang vulkan.x86_64 vulkan.i686 lib64vulkan-devel.x86_64 lib64vulkan-intel-devel.x86_64 lib64vulkan1.x86_64 libvulkan-devel.i686 libvulkan-intel-devel.i686 libvulkan1.i686
+echo "${pass_user}" | sudo -S dnf install -y inxi yad zenity xow libusb-compat0.1_4 paprefs pavucontrol ananicy p7zip python3 grub-customizer libfuse2-devel libfuse3-devel libssl1.1 neofetch git meson ninja gcc gcc-c++ cmake.i686 cmake glibc-devel dbus-devel glslang vulkan.x86_64 vulkan.i686 lib64vulkan-devel.x86_64 lib64vulkan-intel-devel.x86_64 lib64vulkan1.x86_64 libvulkan-devel.i686 libvulkan-intel-devel.i686 libvulkan1.i686
 echo "${pass_user}" | sudo -S dnf autoremove -y
 echo "${pass_user}" | sudo -S dnf clean packages
 ##################################################################################
@@ -188,7 +196,8 @@ fi
 #Проверка что существует папка extensions c доплнениями, если нет
 #копируем распоковываем архив с дополнениями в папку пользователя и ребутим гном сшелл
 #что бы система их увидела
-if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -d "/home/${USER}/.local/share/gnome-shell/extensions/rosa-gnome42" ]
+extensions_conf=`cat "$script_dir/data/extensions-conf"`
+if [ -d "/home/${USER}/.local/share/gnome-shell/extensions/redroot-pack" ] || [ -f "/home/${USER}/.local/share/gnome-shell/extensions/$extensions_conf" ]
 then
 tput setaf 2;echo "комплект дополнений необходимый для [GGS]gnome-gui-switcher уже установлен :)"
 tput sgr 0
@@ -212,7 +221,7 @@ tput setaf 1;echo "ВНИМАНИЕ: начинается установка к�
 tput sgr 0
 #установка дополнений необходимых для [GGS]gnome-gui-switcher gnome 42
 rm -fr "/home/${USER}/.local/share/gnome-shell/extensions" || true
-tar -xpJf "$script_dir/data/extensions-ggs-rosa-g42.tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
+tar -xpJf "$script_dir/data/"$extensions_conf".tar.xz" -C "/home/${USER}/.local/share/gnome-shell/"
 sleep 5
 killall -SIGQUIT gnome-shell
 sleep 5
@@ -238,6 +247,29 @@ dconf write /org/gnome/shell/favorite-apps "['org.gnome.Nautilus.desktop', 'virt
 echo "true" > "$gnome_42_dir/$style_run_func/installing"
 }
 
+function image_installer_for_style () {
+style_run_func="$1"  
+style_image_func="$2"
+# установка обоев для стиля, указанного в настройках
+ if [ ! -f "/usr/share/backgrounds/$style_image_func" ]; then
+    echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" /usr/share/backgrounds/
+    echo "картинка добавлена в папку /usr/share/backgrounds"
+    else
+    echo "картинка есть в папке /usr/share/backgrounds"
+    fi
+  gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/$style_image_func
+  gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/$style_image_func
+   
+   # замена картинки на входе в систему, на указанную в настройках стиля
+   if [ ! -f "/usr/share/wallpapers/ROSA-light-default-backup.svg" ]; then
+
+    echo "${pass_user}" | sudo -S cp -f "/usr/share/wallpapers/ROSA-light-default.svg" "/usr/share/wallpapers/ROSA-light-default-backup.svg"
+    echo "сделан бикап офицальной картинки росы"
+    else
+    echo "бикап офицальной картинки росы уже сделан"
+    fi
+  echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run_func/$style_image_func" "/usr/share/wallpapers/ROSA-light-default.svg"
+}
 # функция отключения всех дополнений
 function gnome_ext_configure () {
 style_run_func="$1" 
@@ -372,6 +404,7 @@ else
 echo "$style_run Style gnome 42 установка!"
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -379,18 +412,12 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-if [ ! -f "/usr/share/backgrounds/blobs-d.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/blobs-d.svg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/blobs-d.svg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/blobs-d.svg
-fi
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  fi
+image_installer_for_style $style_run $style_image
 gnome_ext_configure $style_run
 fi
 ;;
@@ -433,6 +460,7 @@ echo "$style_run Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -440,21 +468,12 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/macos-12-dark.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/macos-12-dark.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/macos-12-dark.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/macos-12-dark.jpg
-
-fi
-
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  fi
+image_installer_for_style $style_run $style_image
 gnome_ext_configure $style_run
 fi
 ;;
@@ -497,6 +516,7 @@ echo "Linux Mint Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -504,20 +524,12 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/libadwaita-d.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/libadwaita-d.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/libadwaita-d.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/libadwaita-d.jpg
-fi
-
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  fi
+image_installer_for_style $style_run $style_image
 gnome_ext_configure $style_run
 fi
 ;;
@@ -560,6 +572,7 @@ echo "$style_run Style gnome 42 установка!"
 
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
@@ -567,21 +580,12 @@ gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
 
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/wallpapers/ROSA-light-default.svg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/$style_run/ROSA-light-default.svg" "/usr/share/wallpapers/"
-echo "картинка добавлена в папку /usr/share/wallpapers"
-else
-echo "картинка есть в папке /usr/share/wallpapers"
-fi
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/wallpapers/ROSA-light-default.svg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/wallpapers/ROSA-light-default.svg
-
-fi
-
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  fi
+image_installer_for_style $style_run $style_image
 gnome_ext_configure $style_run
 fi
 ;;
@@ -631,27 +635,19 @@ gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
 gsettings set org.gnome.mutter attach-modal-dialogs false
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.wm.preferences theme Adwaita
 gsettings set org.gnome.gedit.preferences.editor scheme oblivion
 gsettings set  org.gnome.desktop.interface cursor-theme elementary
 gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
+
 style_installing=`cat "$gnome_42_dir/$style_run/installing"`
-if  echo "$style_installing" | grep -ow "false" > /dev/null
-then
-favorite_apps $style_run
-
-if [ ! -f "/usr/share/backgrounds/42.jpg" ]; then
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42.jpg" /usr/share/backgrounds/
-echo "${pass_user}" | sudo -S cp -f "$gnome_42_dir/redroot/42bluring.jpg" /usr/share/backgrounds/
-echo "картинка добавлена в папку /usr/share/backgrounds"
-else
-echo "картинка есть в папке /usr/share/backgrounds"
-fi
-
-gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/42.jpg
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/42.jpg
-fi
-
+style_image=`cat "$gnome_42_dir/$style_run/image"`
+  if  echo "$style_installing" | grep -ow "false" > /dev/null
+  then
+  favorite_apps $style_run
+  fi
+image_installer_for_style $style_run $style_image
 gnome_ext_configure $style_run
 fi
 ;;
