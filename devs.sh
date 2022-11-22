@@ -2,8 +2,30 @@
 #creator by RedRoot(Yaciyna Mikhail) for GAMER STATION [on linux] and Gaming Community OS Linux
 # GPL-3.0 License
 
+
+script_dir0=$(dirname $(readlink -f "$0"))
+export script_dir=${script_dir0}
+version0=`cat "${script_dir}/config/name_version"`
+export version="Gnome-Gui-Switcher[${version0}]"
+export config_ggs_dir="${script_dir}/config-ggs"
+
+sh "$script_dir/scripts/load-styles.sh"
+ echo "Пак-стилей: ${gnome_all_packs[*]}"
+ echo "Назвение стилей: ${style_packs[*]}"
+
+
+
+
+
+
+
+
+
+
+
+exit 0
 #собираем данные о том в какой папке  находиться редактор
-script_dir=$(cd $(dirname "$0") && pwd);
+script_dir0=$(cd $(dirname "$0") && pwd);
 
 # считываем колличество наборов стилей в папке конфигураций
 readarray -t gnome_all_packs < "${script_dir}/config/gnome-style-packs"
@@ -20,5 +42,6 @@ for gnome_packs in "${gnome_all_packs[@]}"
    echo "false" > "${script_dir}/config/$gnome_packs/$style_names/installing"
   done
 done 
+
 
 exit 0
