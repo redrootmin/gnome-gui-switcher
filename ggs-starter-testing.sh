@@ -62,7 +62,7 @@ echo "ссылка на протативный zenity:[$zenity]"
 
 export gnome_41_dir="${script_dir}/config/rosa-gnome41-config"
 export gnome_42_dir="${script_dir}/config/rosa-gnome42-config"
-gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version="41"
+gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version0="41"
 export gnome_version=$gnome_version0
 echo "$gnome_version" > "${script_dir}/config-ggs/gnome-version-runing"
 export gnome_version_run_dir="${script_dir}/config/rosa-gnome$gnome_version"

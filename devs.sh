@@ -3,15 +3,18 @@
 # GPL-3.0 License
 
 
+
+
 script_dir0=$(dirname $(readlink -f "$0"))
 export script_dir=${script_dir0}
 version0=`cat "${script_dir}/config/name_version"`
 export version="Gnome-Gui-Switcher[${version0}]"
 export config_ggs_dir="${script_dir}/config-ggs"
-
+gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version0="41"
+export gnome_version=$gnome_version0
 sh "$script_dir/scripts/load-styles.sh"
- echo "Пак-стилей: ${gnome_all_packs[*]}"
- echo "Назвение стилей: ${style_packs[*]}"
+sh "$script_dir/scripts/menu-base-ggs-generator.sh"
+
 
 
 
