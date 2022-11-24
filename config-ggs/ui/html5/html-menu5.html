@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+    height: 256px;
+    width: 820px;
+
+    margin: 0;
+}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+
+.tablink:hover {
+    background-color: rgb(78, 74, 74);
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+.button-red{
+  position: fixed;
+  top: 85%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+}
+
+a{
+  display: block;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: rgb(184, 184, 184);
+  border: 2px solid rgb(0, 0, 0);
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+}
+
+a span{
+  position: relative;
+  z-index: 2;
+}
+
+a:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #f12252;
+  transition: all .35s;
+}
+
+a:hover{
+  color: #fff;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+a:hover:after{
+  width: 100%;
+}
+
+#Mesa-default {background-color: rgb(1, 71, 1);}
+#Mesa-backports {background-color: rgb(59, 59, 202);}
+#Mesa-Fidel-git {background-color: rgb(146, 96, 3);}
+#Mesa-Fidel-git-devel {background-color: rgb(119, 9, 119);}
+
+</style>
+</head>
+<body>
+
+<button class="tablink" onclick="openPage('Mesa-default', this, 'rgb(1, 71, 1)')">Mesa-default</button>
+<button class="tablink" onclick="openPage('Mesa-backports', this, 'rgb(59, 59, 202)')" id="defaultOpen">Mesa-backports</button>
+<button class="tablink" onclick="openPage('Mesa-Fidel-git', this, 'rgb(146, 96, 3)')">Mesa-Fidel-git</button>
+<button class="tablink" onclick="openPage('Mesa-Fidel-git-devel', this, 'rgb(119, 9, 119)')">Mesa-Fidel-git-devel</button>
+
+<div id="Mesa-default" class="tabcontent">
+  <h4>Плюсы: Стабильная Mesa для старых ГПУ</h4>
+  <h4>Минусы: нет - Zink, VAAPI и других новых функций</h4>
+    <div class="button-red">
+      <a href="mesa-default"><span>УСТАНОВКА</span></a>
+    </div>
+
+</div>
+
+<div id="Mesa-backports" class="tabcontent">
+  <h4>Плюсы: есть - VAAPI</h4>
+  <h4>Минусы: нет - Zink, могут быть косяки на новых ГПУ</h4>
+    <div class="button-red">
+      <a href="mesa-backports"><span>УСТАНОВКА</span></a>
+    </div>
+
+</div>
+
+<div id="Mesa-Fidel-git" class="tabcontent">
+  <h4>Плюсы: самая новая Mesa с Zink</h4>
+  <h4>Минусы: нет других новых функций</h4>
+    <div class="button-red">
+      <a href="mesa-fidel-git"><span>УСТАНОВКА</span></a>
+    </div>
+
+</div>
+
+<div id="Mesa-Fidel-git-devel" class="tabcontent">
+  <h4>Плюсы: все самые новые функции для новых ГПУ</h4>
+  <h4>Минусы: могут быть ошибки/падения производительности</h4>
+    <div class="button-red">
+      <a href="mesa-fidel-git-devel"><span>УСТАНОВКА</span></a>
+    </div>
+
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+     
+</body>
+</html> 

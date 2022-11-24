@@ -11,6 +11,8 @@
 			  font-family: "Roboto", sans-serif;
 			  text-transform: uppercase;
 			  text-shadow: 0.5px 0.5px 0 #CCCCCC;
+			  height: 480px;
+             width: 960px;
 			}
 			
 			.background {
@@ -44,14 +46,8 @@
 			}
 			
 			li a:hover .circle {
-			  position: relative;
-			  z-index: 1;
-			  top: -60px;
-			  width: 80px;
-			  height: 80px;
-			  border-radius: 100%;
+
 			  animation: illuminate 2s ease-out infinite;
-			  background: #fdc6be;
 			}
 			
 			li i {
@@ -121,6 +117,54 @@
 				opacity: 0;
 			  }
 			}
+			
+			   .button-red {
+					position: fixed;
+					top: 85%;
+					left: 85%;
+					transform: translate(-50%, -50%);
+				}
+				.button-red a {
+					display: block;
+					width: 200px;
+					height: 40px;
+					line-height: 40px;
+					font-size: 18px;
+					font-family: sans-serif;
+					text-decoration: none;
+					color: rgb(184, 184, 184);
+					border: 2px solid rgb(0, 0, 0);
+					letter-spacing: 2px;
+					text-align: center;
+					position: relative;
+					transition: all .35s;
+					}
+
+					.button-red a span{
+					position: relative;
+					z-index: 2;
+					}
+
+					.button-red a:after{
+					position: absolute;
+					content: "";
+					top: 0;
+					left: 0;
+					width: 0;
+					height: 100%;
+					background: #f12252;
+					transition: all .35s;
+					}
+
+					.button-red a:hover{
+					color: #fff;
+					border: 2px solid rgb(255, 255, 255);
+					}
+
+					.button-red a:hover:after{
+					width: 100%;
+					}
+
 			</style>
 <script>
 	window.console = window.console || function(t) {};
@@ -138,43 +182,21 @@
 
 	<body translate="no">
   <ul class="nav">
-  <li>
-    <a href="https://jasminegump.com" target="_blank">
-      <i class="fas fa-home fa-3x home" aria-hidden="true">
-        <div class="circle"></div>
-      </i>
-      <div class="title">Home</div>
-    </a>
-  </li>
+	<li>
+		<a img src="rosa.png" alt="" href="rosa" target="_blank">
+		  <i class="fas fa-home fa-3x home" aria-hidden="true">
+			<div class="circle"></div>
+		  </i>
+		  <div class="title">rosa</div>
+		</a>
+	  </li>
   
-  <li>
-    <a href="https://twitter.com/ladyjellington" target="_blank">
-      <i class="fab fa-twitter fa-3x twitter" aria-hidden="true">
-        <div class="circle"></div>
-      </i>
-      <div class="title">Twitter</div>
-    </a>
-  </li>
-  
-  <li>
-    <a href="https://codepen.io/ladyjellington" target="_blank">
-      <i class="fab fa-codepen fa-3x codepen" aria-hidden="true">
-        <div class="circle"></div></i>
-      <div class="title">Codepen</div>
-    </a>
-  </li>
-  
-  <li>
-    <a href="https://github.com/jasminegmp" target="_blank">
-        <i class="fab fa-github fa-3x github" aria-hidden="true">
-          <div class="circle"></div></i>
-        <div class="title">Github</div>
-      </a>
-  </li>
   <div class="background"></div>
-
   </ul>
-  
+  <div class="button-red">
+	<a href="exit-app"><span>ВЫХОД</span></a>
+  </div>
+
    </body>
 </html> 
 
