@@ -15,16 +15,20 @@ gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version0="41"
 export gnome_version=$gnome_version0
 sh "$script_dir/scripts/load-styles.sh"
 sh "$script_dir/scripts/menu-base-ggs-generator.sh"
+
 ggs_ui_html5_dev0=`cat "$script_dir/config-ggs/ui/html5/html5-ui-ggs-dev.html"`
 export ggs_ui_html5_dev=$ggs_ui_html5_dev0
 
+ggs_ui_html5_url0="$script_dir/config-ggs/ui/html5/html5-ui-ggs-dev.html"
+export ggs_ui_html5_url="$ggs_ui_html5_url0"
+
 function ggs-ui-html5-app () {
-echo "$ggs_ui_html5_dev" | stdbuf -oL -eL yad  --html \
+ echo "$ggs_ui_html5_dev" | stdbuf -oL -eL yad  --html \
 --print-uri 2>&1 \
 --center \
 --undecorated \
 --no-buttons \
---width=1280 --height=720 \
+--width=1024 --height=512 \
 --window-icon="$icon1" | while read -r line; do
      export url_call="${line##*/}"
      tput setaf 2;echo "${url_call}";tput setaf 0
