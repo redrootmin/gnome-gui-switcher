@@ -46,7 +46,10 @@ function ggs-ui-html5-app () {
       mint)
         echo "начинаем установку ${url_call}"
         ;;
-      ubuntu) killall yad
+      ubuntu)
+      echo "начинаем установку ${url_call}"
+      ;;
+      exit-app) killall yad
       ;;
       *) echo "неизвестная комманда[${url_call}]" 
       ;;
