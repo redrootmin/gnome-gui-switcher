@@ -33,19 +33,20 @@ function ggs-ui-html5-app () {
      export url_call="${line##*/}"
      tput setaf 2;echo "${url_call}";tput setaf 0
      case ${url_call} in
-      style1)
+      rosa)
+        echo "начинаем установку ${url_call}"
+
+        ;;
+      redroot)
         echo "начинаем установку ${url_call}"
         ;;
-      style2)
+      macos)
         echo "начинаем установку ${url_call}"
         ;;
-      style3)
+      mint)
         echo "начинаем установку ${url_call}"
         ;;
-      style4)
-        echo "начинаем установку ${url_call}"
-        ;;
-      exit-app) killall yad
+      ubuntu) killall yad
       ;;
       *) echo "неизвестная комманда[${url_call}]" 
       ;;

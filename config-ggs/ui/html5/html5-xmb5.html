@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>PS3 UI-test5</title>
+		<meta charset="UTF-8">
+		<style>
+		/* Pure CSS background animation */
+					.circles{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			.circles li{
+				position: absolute;
+				display: block;
+				list-style: none;
+				width: 20px;
+				height: 20px;
+				background: rgba(255, 255, 255, 0.2);
+				animation: animate 25s linear infinite;
+				bottom: -150px;
+				
+			}
+
+			.circles li:nth-child(1){
+				left: 25%;
+				width: 80px;
+				height: 80px;
+				animation-delay: 0s;
+			}
+
+
+			.circles li:nth-child(2){
+				left: 10%;
+				width: 20px;
+				height: 20px;
+				animation-delay: 2s;
+				animation-duration: 12s;
+			}
+
+			.circles li:nth-child(3){
+				left: 70%;
+				width: 20px;
+				height: 20px;
+				animation-delay: 4s;
+			}
+
+			.circles li:nth-child(4){
+				left: 40%;
+				width: 60px;
+				height: 60px;
+				animation-delay: 0s;
+				animation-duration: 18s;
+			}
+
+			.circles li:nth-child(5){
+				left: 65%;
+				width: 20px;
+				height: 20px;
+				animation-delay: 0s;
+			}
+
+			.circles li:nth-child(6){
+				left: 75%;
+				width: 110px;
+				height: 110px;
+				animation-delay: 3s;
+			}
+
+			.circles li:nth-child(7){
+				left: 35%;
+				width: 150px;
+				height: 150px;
+				animation-delay: 7s;
+			}
+
+			.circles li:nth-child(8){
+				left: 50%;
+				width: 25px;
+				height: 25px;
+				animation-delay: 15s;
+				animation-duration: 45s;
+			}
+
+			.circles li:nth-child(9){
+				left: 20%;
+				width: 15px;
+				height: 15px;
+				animation-delay: 2s;
+				animation-duration: 35s;
+			}
+
+			.circles li:nth-child(10){
+				left: 85%;
+				width: 150px;
+				height: 150px;
+				animation-delay: 0s;
+				animation-duration: 11s;
+			}
+
+
+
+			@keyframes animate {
+
+				0%{
+					transform: translateY(0) rotate(0deg);
+					opacity: 1;
+					border-radius: 0;
+				}
+
+				100%{
+					transform: translateY(-1000px) rotate(720deg);
+					opacity: 0;
+					border-radius: 50%;
+				}
+
+			}
+			/* ################################## */
+
+		/* Diagonal Color Gradients */
+					html, body {
+			width: 100%;
+			height:100%;
+			}
+
+			body {
+				background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+				background-size: 400% 400%;
+				animation: gradient 15s ease infinite;
+			}
+
+			@keyframes gradient {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+			/* ######################## */
+
+		/* PS3 Menu UI (xmb) analog using Javascript*/
+			video {
+			display: block;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			position: absolute;
+			z-index: 1;
+			}
+			#app {
+			position: relative;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			}
+			#app {
+			-webkit-mask-image: -webkit-gradient(
+				linear,
+				left 90%,
+				left bottom,
+				from(rgba(0, 0, 0, 1)),
+				to(rgba(0, 0, 0, 0))
+			);
+			}
+
+			.menus {
+			position: absolute;
+			top: 100px;
+			left: 150px;
+			}
+			.menus > .menu {
+			display: flex;
+			position: relative;
+			left: 0;
+			transition: left 0.3s ease-in-out;
+			}
+			.menus > .menu > .item {
+			flex-basis: 150px;
+			flex-grow: 0;
+			flex-shrink: 0;
+			padding: 0;
+			opacity: 0.5;
+			position: relative;
+			}
+			.menus > .menu > .item > .icon {
+			margin-bottom: 5px;
+			width: 80px;
+			display: flex;
+			justify-content: center;
+			}
+			.menus > .menu > .item > .label {
+			width: 80px;
+			display: flex;
+			flex-wrap: nowrap;
+			white-space: nowrap;
+			justify-content: center;
+			opacity: 0;
+			transition: opacity 0.3s ease-in-out;
+			}
+			.menus > .menu > .item.active > .label {
+			opacity: 1;
+			}
+			.menus > .menu > .item.active {
+			opacity: 1;
+			}
+			.menus > .menu > .item > .icon > svg {
+			width: 60px;
+			height: 60px;
+			}
+
+			.menus > .menu > .item > .menu {
+			height: 400px;
+			opacity: 0;
+			position: relative;
+			top: -130px;
+			transition: top 0.3s ease-in-out, opacity 0.3s ease-in;
+			}
+
+			.menus > .menu > .item.active > .menu {
+			opacity: 1;
+			}
+
+			.menus > .menu > .item > .menu {
+			text-align: left;
+			padding-top: 30px;
+			}
+			.menus > .menu > .item > .menu > .item {
+			display: flex;
+			position: relative;
+			opacity: 0.5;
+			line-height: 1.2;
+			align-items: center;
+			white-space: nowrap;
+			padding: 10px 0;
+			transition: padding-top 0.1s ease-in-out;
+			}
+			.menus > .menu > .item > .menu > .item .description {
+			font-size: 12px;
+			display: none;
+			}
+			.menus > .menu > .item > .menu > .item > .icon {
+			flex-shrink: 0;
+			flex-grow: 0;
+			flex-basis: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			}
+			.menus > .menu > .item > .menu > .item > .icon > svg {
+			width: 30px;
+			height: 30px;
+			transition: transform 0.3s ease-in-out;
+			}
+
+			.menus > .menu > .item > .menu > .item.active {
+			opacity: 1;
+			padding: 130px 0 20px 0;
+			}
+			.menus > .menu > .item.active > .menu > .item.active > .icon > svg {
+			transform: scale(1.5);
+			}
+			.menus > .menu > .item.active > .menu > .item.active .description {
+			display: block;
+			}
+          /* ######################## */
+
+		</style>
+
+	</head>
+
+	<body>
+			<div id="app">
+				<ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+			</div>
+		<script>
+			const menu = [
+			{
+				label: "Menu item A",
+				menu: [
+				{ label: "Menu A 1", description: "Menu description A 1" },
+				{ label: "Menu A 2", description: "Menu description A 2" },
+				{ label: "Menu A 3", description: "Menu description A 3" },
+				{ label: "Menu A 4", description: "Menu description A 4" },
+				{ label: "Menu A 5", description: "Menu description A 5" },
+				{ label: "Menu A 6", description: "Menu description A 6" },
+				{ label: "Menu A 7", description: "Menu description A 7" },
+				{ label: "Menu A 8", description: "Menu description A 8" }
+				]
+			},
+			{
+				label: "Menu item B",
+				menu: [
+				{ label: "Menu B 1", description: "Menu description B 1" },
+				{ label: "Menu B 2", description: "Menu description B 2" }
+				]
+			},
+			{
+				label: "Menu item C",
+				menu: [
+				{ label: "Menu C 1", description: "Menu description C 1" },
+				{ label: "Menu C 2", description: "Menu description C 2" }
+				]
+			},
+			{
+				label: "Menu item D",
+				menu: [
+				{ label: "Menu D 1", description: "Menu description D 1" },
+				{ label: "Menu D 2", description: "Menu description D 2" }
+				]
+			},
+			{
+				label: "Menu item E",
+				menu: [
+				{ label: "Menu E 1", description: "Menu description E 1" },
+				{ label: "Some E 2", description: "Some description E 2" }
+				]
+			},
+			{
+				label: "Menu item F",
+				menu: [
+				{ label: "Menu E 1", description: "Menu description E 1" },
+				{ label: "Some E 2", description: "Some description E 2" }
+				]
+			},
+			{
+				label: "Menu item G",
+				menu: [
+				{ label: "Menu E 1", description: "Menu description E 1" },
+				{ label: "Some E 2", description: "Some description E 2" }
+				]
+			},
+			{
+				label: "Menu item H",
+				menu: [
+				{ label: "Menu E 1", description: "Menu description E 1" },
+				{ label: "Some E 2", description: "Some description E 2" }
+				]
+			},
+			{
+				label: "Menu item I",
+				menu: [
+				{ label: "Menu E 1", description: "Menu description E 1" },
+				{ label: "Some E 2", description: "Some description E 2" }
+				]
+			}
+			];
+
+			const createMenu = (root, menu) => {
+			const menu_item_el = document.createElement("div");
+			menu_item_el.setAttribute("class", "menu");
+			menu.forEach((item, i) => {
+				const item_el = document.createElement("div");
+				item_el.setAttribute("class", "item");
+				if (i === 0) {
+				item_el.classList.add("active");
+				}
+				item_el.setAttribute("data-index", i);
+				item_el.innerHTML = `
+					<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+						<path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+					</svg>
+					</div>
+					<div class="label"><div class="title">${item.label}</div>${
+				item.description
+					? `<div class="description">${item.description}</div>`
+					: ""
+				}</div>
+					`;
+				menu_item_el.appendChild(item_el);
+				if (item.menu) createMenu(item_el, item.menu);
+			});
+			root.appendChild(menu_item_el);
+			};
+
+			const animateMenu = (node, next_node, direction) => {
+			if (next_node) {
+				if (direction === "y") {
+				const index = parseInt(next_node.dataset.index);
+				const rect = next_node.getBoundingClientRect();
+				document.querySelector(
+					".menus > .menu > .item.active > .menu"
+				).style.top = `-${rect.height * index + 130}px`;
+				} else {
+				const index = parseInt(next_node.dataset.index);
+				const rect = next_node.getBoundingClientRect();
+				document.querySelector(".menus > .menu").style.left = `-${
+					rect.width * index
+				}px`;
+				}
+				node.classList.remove("active");
+				next_node.classList.add("active");
+			}
+			};
+
+			const navigateMenu = (event) => {
+			video.play();
+			if (event.key === "ArrowDown") {
+				const menu_node = document.querySelector(
+				".menus > .menu > .item.active > .menu > .item.active"
+				);
+				animateMenu(menu_node, menu_node.nextSibling, "y");
+			} else if (event.key === "ArrowUp") {
+				const menu_node = document.querySelector(
+				".menus > .menu > .item.active > .menu > .item.active"
+				);
+				animateMenu(menu_node, menu_node.previousSibling, "y");
+			} else if (event.key === "ArrowLeft") {
+				const menu_node = document.querySelector(".menus > .menu > .item.active");
+				animateMenu(menu_node, menu_node.previousSibling, "x");
+			} else if (event.key === "ArrowRight") {
+				const menu_node = document.querySelector(".menus > .menu > .item.active");
+				animateMenu(menu_node, menu_node.nextSibling, "x");
+			}
+			};
+
+			let video;
+			const start = () => {
+			video = document.createElement("video");
+			video.setAttribute("class", "bg");
+			video.setAttribute("loop", "true");
+			document.body.appendChild(video);
+			video.src = "https://ps3-ui.jpm23456.repl.co/waves.mp4";
+			const app = document.getElementById("app");
+			const menu_el = document.createElement("div");
+			menu_el.setAttribute("class", "menus");
+			createMenu(menu_el, menu);
+			app.appendChild(menu_el);
+			document.addEventListener("keydown", navigateMenu);
+			};
+			document.addEventListener("DOMContentLoaded", start);
+
+		</script>
+	     
+	</body>
+</html> 
+
