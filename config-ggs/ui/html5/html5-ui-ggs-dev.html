@@ -2,7 +2,7 @@
 <html>
 	<head>
 
-		<title>html5</title>
+		<title>Gnome-Gui-Switcher-ui-html5</title>
 		<meta charset="UTF-8">
 		<style>
             .rosa {
@@ -89,7 +89,7 @@
 		transform-origin: center center;
     }
 
-    .image-sample {
+    .image-sample:hover  {
   		transform: scale(1.1);
     }
 
@@ -109,11 +109,6 @@
 			  transition: 0.75s;
 			}
 
-			.nav {
-			  padding: 0px;
-			  width: 1024;
-			}
-
 			ul {
 			  list-style-type: none;
 
@@ -129,19 +124,12 @@
 			  text-decoration: none;
 			}
 
-			li a:hover .circle {
-			  animation: illuminate 2s ease-out infinite;
+			.nav {
+			  padding: 0px;
+			  width: 1024;
 			}
 
-			li i {
-			  height: 50px;
-			}
-
-			li a .title {
-			  font-size: 0px;
-			}
-
-			.nav li:first-child:hover ~ .background {
+			.nav li:nth-child(1):hover ~ .background {
 			  background: #05386b;
 			}
 

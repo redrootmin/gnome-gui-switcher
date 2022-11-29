@@ -4,6 +4,7 @@
 =f extensions-conf
 =f icon
 =f image
+=f image.base64
 =f installing
 =f favorite-apps
 =f run-script.sh

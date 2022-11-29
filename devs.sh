@@ -13,6 +13,7 @@ export version="Gnome-Gui-Switcher[${version0}]"
 export config_ggs_dir="${script_dir}/config-ggs"
 gnome_version0=`gnome-shell --version | grep -wo "42"` || gnome_version0="41"
 export gnome_version=$gnome_version0
+
 sh "$script_dir/scripts/load-styles.sh"
 sh "$script_dir/scripts/menu-base-ggs-generator.sh"
 
