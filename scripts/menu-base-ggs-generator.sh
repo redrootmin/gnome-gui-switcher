@@ -55,6 +55,7 @@ for gnome_packs in "${gnome_all_packs[@]}"
                                      info_gnome_packs="папки и файлы в наборе стилей [$config_ggs_dir/gnome-packs/${gnome_packs}] - существуют и не пусты, набор стилей  $gnome_packs добавляет в меню ggs генератором"
                                      echo "$info_gnome_packs"
                                      echo "$info_gnome_packs" >>"$config_ggs_dir/logs/log-menu-ggs-generator"
+                                     echo "$gnome_packs" > "$config_ggs_dir/conf/gnome-pack-run"
                                        #загружаем список стилей для последующей проверки
                                         readarray -t style_all_packs < "$config_ggs_dir/gnome-packs/$gnome_packs/style-name"
                                          info_gnome_pack_styles="список стилей в наборе для проверки: ${style_all_packs[*]}"
