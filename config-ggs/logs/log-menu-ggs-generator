@@ -1,20 +1,12 @@
-[[[[[[[LOG-ERROR-MENU-GGS-GENERATOR-Сб 10 дек 2022 09:26:38 MSK-]]]]]]]]]
+[[[[[[[LOG-ERROR-MENU-GGS-GENERATOR-Вт 03 янв 2023 14:22:45 MSK-]]]]]]]]]
 набор стилей rosa-gnome41 не совпадает с версией в системе и игнорируетсмя генератором!
-папки и файлы в наборе стилей [/usr/share/bzu-gmb/GGS-DEV/gnome-gui-switcher/config-ggs/gnome-packs/rosa-gnome42] - существуют и не пусты, набор стилей  rosa-gnome42 добавляет в меню ggs генератором
-список стилей в наборе для проверки: macos mint redroot rosa rosa (3-я копия) rosa (4-я копия) rosa (5-я копия) rosa (6-я копия) rosa (7-я копия) rosa (8-я копия) rosa (другая копия) rosa (копия) ubuntu
+папки и файлы в наборе стилей [/usr/share/bzu-gmb/gnome-gui-switcher/config-ggs/gnome-packs/rosa-gnome42] - существуют и не пусты, набор стилей  rosa-gnome42 добавляет в меню ggs генератором
+список стилей в наборе для проверки: macos mint redroot rosa ubuntu
 добавляем стиль [macos] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
 добавляем стиль [mint] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
 добавляем стиль [redroot] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
 добавляем стиль [rosa] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (3-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (4-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (5-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (6-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (7-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (8-я копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (другая копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
-добавляем стиль [rosa (копия)] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
 добавляем стиль [ubuntu] в файл базу провереных стилей:[/conf/base_for_menu_ggs]
 набор стилей rosa-gnome43 не совпадает с версией в системе и игнорируетсмя генератором!
 Формируем меню из набора стилей rosa-gnome42
-Меню набора стилей rosa-gnome42 сгенерировано в формате html5[/usr/share/bzu-gmb/GGS-DEV/gnome-gui-switcher/config-ggs/ui/html5/html5-ui-base-run.html]
+Меню набора стилей rosa-gnome42 сгенерировано в формате html5[/usr/share/bzu-gmb/gnome-gui-switcher/config-ggs/ui/html5/html5-ui-base-run.html]
