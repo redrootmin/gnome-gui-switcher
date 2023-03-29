@@ -10,7 +10,7 @@ linuxos_gnome="true"
 if [ ! -e /usr/bin/gnome-shell ];then linuxos_gnome="false";fi
 
 #проверяем что система совместима с ggs
-if echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.2" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null || echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.3" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null
+if echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.2" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null || echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.3" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null || echo "${linuxos_version}" | grep -ow "ROSA Fresh Desktop 12.4" > /dev/null && echo "${linuxos_gnome}" | grep -ow "true" > /dev/null
 then
 tput setaf 2;echo "Операциооная система: ${linuxos_version} [GNOME] совместима с [GGS]gnome-gui-switcher"
 tput sgr 0
@@ -19,9 +19,10 @@ export linuxos_run=$linuxos_run0
 linux_os_conf0="$linuxos_run-config"
 export linux_os_conf=$linux_os_conf0
 
-else 
+else
 tput setaf 1;echo "Операциооная система: ${linuxos_version} не совместима с [GGS]gnome-gui-switcher!"
 tput sgr 0
+GTK_THEME="Adwaita-dark" zenity --error --ellipsize  --timeout=5 --text="Данная операционная система [${linuxos_version}] не совместима с [GGS]gnome-gui-switcher"
 exit 1
 fi
 
