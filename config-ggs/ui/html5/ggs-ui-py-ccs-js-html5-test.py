@@ -10,6 +10,6 @@ class Api():
   def log(self, value):
     print(value)
     
-webview.create_window('GGS-web-gui-test', 'html5-ui-base-run.html', width=1064, height=512, js_api=Api())
+webview.create_window('GGS-web-gui-test', 'html5-ui-base-run-2.html', width=1064, height=512, js_api=Api())
 webview.start()
 
