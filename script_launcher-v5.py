@@ -91,9 +91,31 @@ class ScriptLauncherApp(Gtk.Application):
         except Exception as e:
             logging.error(f"Ошибка сохранения темы: {str(e)}")
 
-    def do_activate(self):
-        self.win = Gtk.ApplicationWindow(application=self, title="Alt-ggs(alfa)")
-        self.win.set_default_size(1280, 800)
+def do_activate(self):
+    self.win = Gtk.ApplicationWindow(application=self, title="Alt-ggs(alfa)")
+    self.win.set_default_size(1280, 800)
+    
+    # Центрирование окна (GTK4 способ)
+    self.win.set_modal(True)  # Для модальных окон
+    # ИЛИ
+    self.win.set_hide_on_close(False)
+    
+    # Получаем размеры экрана
+    display = self.win.get_display()
+    monitor = display.get_primary_monitor()
+    geometry = monitor.get_geometry()
+    
+    # Вычисляем позицию
+    win_width, win_height = 1280, 800  # Должно совпадать с set_default_size()
+    x = (geometry.width() - win_width) // 2
+    y = (geometry.height() - win_height) // 2
+    
+    # Устанавливаем позицию через хинты
+    self.win.set_startup_id(f"xyz {x} {y}")  # Костыль для Wayland
+    
+    # Для X11-совместимых систем
+    if os.getenv("WAYLAND_DISPLAY") is None:
+        self.win.move(x, y)
         
         # Применяем сохраненную тему
         settings = Gtk.Settings.get_default()
